@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<script src="./image-slot.js"></script>
+<script src="./aure-cart.js"></script>
+<style>
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-ExtraLight.ttf') format('truetype');font-weight:200;font-style:normal;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/CormorantGaramond-VariableFont_wght.ttf') format('truetype');font-weight:300 700;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/CormorantGaramond-Italic-VariableFont_wght.ttf') format('truetype');font-weight:300 700;font-style:italic;font-display:swap}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#ffffff;color:#2a2422;font-family:'Poppins',system-ui,sans-serif;font-weight:200;-webkit-font-smoothing:antialiased;letter-spacing:.01em}
+  a{color:#a28b4c;text-decoration:none}
+  a:hover{color:#8a744a}
+  ::selection{background:#f1eeef;color:#2a2422}
+  @keyframes aure-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes aure-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  image-slot{--is-bg:#f6f3f1}
+  #aure-carousel{scrollbar-width:none;-ms-overflow-style:none}
+  #aure-carousel::-webkit-scrollbar{display:none}
+  #aure-rail{scrollbar-width:none;-ms-overflow-style:none}
+  #aure-rail::-webkit-scrollbar{display:none}
+  #aure-rail-slider{-webkit-appearance:none;appearance:none;height:2px;background:#e7e0dc;border-radius:2px;outline:none;cursor:pointer}
+  #aure-rail-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:5px;border-radius:3px;background:#b49ba4;cursor:grab}
+  #aure-rail-slider::-moz-range-thumb{width:30px;height:5px;border:none;border-radius:3px;background:#b49ba4;cursor:grab}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#2a2422"></rect><text x="50" y="66" font-family="Cormorant Garamond, Georgia, serif" font-style="italic" font-size="52" fill="#a28b4c" text-anchor="middle">A</text></svg></template>
+
+<div style="min-height:100vh;position:relative">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:60;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:22px 56px;background:{{ headerBg }};backdrop-filter:blur(14px);border-bottom:1px solid {{ headerBorder }};transform:translateY({{ headerY }});pointer-events:{{ headerPE }};transition:background .5s ease,border-color .5s ease,padding .5s ease,transform .45s ease">
+    <div style="justify-self:start">
+      <a href="#contact" style="display:inline-block;border:1px solid {{ navColor }};color:{{ navColor }};padding:12px 26px;font-size:13px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;transition:background .35s ease,color .35s ease,border-color .5s ease" style-hover="{ background:navColor, color:navContrast }">Get in touch</a>
+    </div>
+    <a href="#top" onClick="{{ scrollTop }}" style="justify-self:center;display:block;position:relative" aria-label="Auré — back to top">
+      <img src="assets/logo-white.png" alt="Auré" style="height:48px;display:block;transition:opacity .5s ease;opacity:{{ logoWhiteOp }}">
+      <span aria-hidden="true" style="position:absolute;inset:0;width:109px;height:48px;display:block;background:#b49ba4;-webkit-mask:url('assets/logo-dark.png') center/contain no-repeat;mask:url('assets/logo-dark.png') center/contain no-repeat;transition:opacity .5s ease;opacity:{{ logoDarkOp }}"></span>
+    </a>
+    <div style="justify-self:end;display:flex;align-items:center;gap:24px;position:relative">
+      <a href="#collection" onClick="{{ backToCollection }}" style="color:{{ navColor }};font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:300;transition:color .5s ease;white-space:nowrap" style-hover="{ color:'#a28b4c' }">Vol. 1</a>
+      <span style="color:{{ navColor }};opacity:.4;font-size:12px;font-weight:200;transition:color .5s ease">|</span>
+      <a href="#clients" onClick="{{ goToClients }}" style="color:{{ navColor }};font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:300;transition:color .5s ease;white-space:nowrap" style-hover="{ color:'#a28b4c' }">Features</a>
+      <button onClick="{{ toggleSearch }}" aria-label="Search" style="background:none;border:none;cursor:pointer;padding:6px;color:{{ navColor }};display:grid;place-items:center;transition:color .5s ease">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
+      </button>
+      <button onClick="{{ toggleWish }}" aria-label="Wishlist" style="background:none;border:none;cursor:pointer;padding:6px;color:{{ navColor }};display:grid;place-items:center;position:relative;transition:color .5s ease">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="{{ wishHeartFill }}" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5l-1.4-1.3C5.4 14.5 2 11.4 2 7.6 2 4.9 4.1 2.9 6.8 2.9c1.5 0 3 .7 3.9 1.9l1.3 1.6 1.3-1.6c.9-1.2 2.4-1.9 3.9-1.9 2.7 0 4.8 2 4.8 4.7 0 3.8-3.4 6.9-8.6 11.6z"></path></svg>
+        <sc-if value="{{ hasWish }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;padding:0 4px;background:#a28b4c;color:#fff;border-radius:9px;font-size:10px;font-weight:400;display:grid;place-items:center;font-family:'Poppins'">{{ wishCount }}</span></sc-if>
+      </button>
+      <button onClick="{{ toggleBag }}" aria-label="Enquiry list" style="background:none;border:none;cursor:pointer;padding:6px;color:{{ navColor }};display:grid;place-items:center;position:relative;transition:color .5s ease">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6.5 8.5h11l-1 11.5H7.5l-1-11.5z"></path><path d="M9 8.5V6.6a3 3 0 0 1 6 0v1.9"></path></svg>
+        <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;padding:0 4px;background:#a28b4c;color:#fff;border-radius:9px;font-size:10px;font-weight:400;display:grid;place-items:center;font-family:'Poppins'">{{ cartCount }}</span></sc-if>
+      </button>
+
+      <!-- search field -->
+      <div style="position:absolute;top:52px;right:0;width:340px;background:#fff;border:1px solid #ece7e5;box-shadow:0 18px 50px -20px rgba(42,36,34,.28);opacity:{{ searchOpacity }};transform:translateY({{ searchY }});pointer-events:{{ searchPE }};transition:opacity .35s ease,transform .35s ease;overflow:hidden">
+        <div style="padding:14px 16px">
+          <div style="display:flex;align-items:center;gap:10px;border-bottom:1px solid #e6e0dd;padding-bottom:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a28b4c" stroke-width="1.5"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
+            <input value="{{ searchQuery }}" onInput="{{ onSearch }}" placeholder="Search the collection…" style="border:none;outline:none;font-family:'Poppins';font-weight:200;font-size:14px;width:100%;color:#2a2422;background:none">
+          </div>
+          <sc-if value="{{ searchIdle }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:11px;color:#b6aca7;margin-top:10px;letter-spacing:.04em">Try “Mist Green”, “Ruby Red”, or “Vol. 1”</div>
+          </sc-if>
+        </div>
+        <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ false }}">
+          <div style="max-height:320px;overflow-y:auto;border-top:1px solid #f1eeef">
+            <sc-for list="{{ searchResults }}" as="r" hint-placeholder-count="2">
+              <a href="#collection" onClick="{{ r.go }}" style="display:flex;align-items:center;gap:13px;padding:11px 16px;border-bottom:1px solid #f7f4f3;text-decoration:none" style-hover="{ background:'#faf8f7' }">
+                <div style="width:42px;height:54px;flex:none;background:#eee6e3 center/cover no-repeat;background-image:url('{{ r.img1 }}')"></div>
+                <div style="flex:1">
+                  <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:14px;color:#2a2422;letter-spacing:.03em">{{ r.name }}</div>
+                  <div style="font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a28b4c;font-weight:300;margin-top:3px">{{ r.tag }}</div>
+                </div>
+              </a>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:26px 18px;text-align:center;color:#b6aca7;font-size:13px;font-weight:200;border-top:1px solid #f1eeef">No pieces match “{{ searchQuery }}”.</div>
+        </sc-if>
+      </div>
+
+      <!-- wishlist dropdown -->
+      <div style="position:absolute;top:52px;right:0;width:330px;background:#fff;border:1px solid #ece7e5;box-shadow:0 18px 50px -20px rgba(42,36,34,.28);opacity:{{ wishOpacity }};transform:translateY({{ wishY }});pointer-events:{{ wishPE }};transition:opacity .35s ease,transform .35s ease;overflow:hidden">
+        <div style="padding:16px 18px 12px;border-bottom:1px solid #f1eeef;display:flex;align-items:baseline;justify-content:space-between">
+          <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:18px">Your Wishlist</span>
+          <span style="font-size:11px;color:#b6aca7;letter-spacing:.06em">{{ wishCount }} SAVED</span>
+        </div>
+        <div style="max-height:300px;overflow-y:auto">
+          <sc-if value="{{ hasWish }}" hint-placeholder-val="{{ true }}">
+            <sc-for list="{{ wishItems }}" as="w" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:13px;padding:12px 18px;border-bottom:1px solid #f7f4f3">
+                <div style="width:44px;height:56px;flex:none;background:#eee6e3 center/cover no-repeat;background-image:url('{{ w.thumb }}')"></div>
+                <div style="flex:1">
+                  <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:15px;color:#2a2422">{{ w.name }}</div>
+                  <div style="font-size:11px;color:#b6aca7;letter-spacing:.04em">{{ w.tag }}</div>
+                </div>
+                <button onClick="{{ w.remove }}" aria-label="Remove" style="background:none;border:none;cursor:pointer;color:#c9beb9;font-size:16px;padding:4px" style-hover="{ color:'#a28b4c' }">×</button>
+              </div>
+            </sc-for>
+          </sc-if>
+          <sc-if value="{{ noWish }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:34px 20px;text-align:center;color:#b6aca7;font-size:13px;font-weight:200;line-height:1.7">Nothing saved yet.<br>Tap the ♡ on a piece to keep it here.</div>
+          </sc-if>
+        </div>
+      </div>
+
+      <!-- enquiry list (bag) dropdown -->
+      <div style="position:absolute;top:52px;right:0;width:452px;background:#fff;border:1px solid #ece7e5;box-shadow:0 18px 50px -20px rgba(42,36,34,.28);opacity:{{ bagOpacity }};transform:translateY({{ bagY }});pointer-events:{{ bagPE }};transition:opacity .35s ease,transform .35s ease;overflow:hidden;z-index:70">
+        <div style="padding:20px 22px 14px;border-bottom:1px solid #f1eeef;display:flex;align-items:baseline;justify-content:space-between">
+          <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:18px">Your Enquiry List</span>
+          <span style="font-size:11px;color:#b6aca7;letter-spacing:.06em;white-space:nowrap">{{ cartCount }} SELECTED</span>
+        </div>
+        <div style="max-height:520px;overflow-y:auto">
+          <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ cartItems }}" as="c" hint-placeholder-count="2">
+              <div style="display:flex;gap:13px;padding:18px 22px;border-bottom:1px solid #f7f4f3">
+                <div style="width:64px;height:82px;flex:none;background:#eee6e3 center/cover no-repeat;background-image:url('{{ c.thumb }}')"></div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+                    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:16px;color:#2a2422">{{ c.name }}</div>
+                    <button onClick="{{ c.remove }}" aria-label="Remove" style="background:none;border:none;cursor:pointer;color:#c9beb9;font-size:16px;line-height:1;padding:0 2px" style-hover="{ color:'#a28b4c' }">×</button>
+                  </div>
+                  <div style="font-size:11px;color:#8a807b;font-weight:300;letter-spacing:.02em;margin-top:3px;line-height:1.7">{{ c.item }} · Size {{ c.size }} · {{ c.fabric }}</div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+                    <div style="display:flex;align-items:center;border:1px solid #ece7e5;border-radius:4px">
+                      <button onClick="{{ c.dec }}" aria-label="Decrease" style="width:26px;height:26px;border:none;background:none;cursor:pointer;font-size:15px;color:#6b6560">−</button>
+                      <span style="min-width:22px;text-align:center;font-size:12px;color:#2a2422;font-family:'Poppins'">{{ c.qty }}</span>
+                      <button onClick="{{ c.inc }}" aria-label="Increase" style="width:26px;height:26px;border:none;background:none;cursor:pointer;font-size:15px;color:#6b6560">+</button>
+                    </div>
+                    <div style="font-size:12px;color:#a28b4c;font-weight:300">{{ c.price }}</div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+            <div style="padding:20px 22px">
+              <button onClick="{{ sendEnquiry }}" style="width:100%;height:50px;display:inline-flex;align-items:center;justify-content:center;gap:11px;border:none;background:#2a2422;color:#fff;font-family:'Poppins';font-weight:300;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:background .3s ease" style-hover="{ background:'#000000' }">
+                <img src="assets/icons/whatsapp.png" alt="" style="width:18px;height:18px;display:block;filter:brightness(0) invert(1)">
+                Send enquiry via WhatsApp
+              </button>
+              <button onClick="{{ clearCart }}" style="display:block;width:100%;margin-top:10px;background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#b6aca7;font-weight:300" style-hover="{ color:'#a28b4c' }">Clear list</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noCart }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:34px 22px;text-align:center;color:#b6aca7;font-size:13px;font-weight:200;line-height:1.8">Your enquiry list is empty.<br>Pick your options on any piece and add it here.</div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <span id="top"></span>
+
+  <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+
+  <!-- ============ HERO (full-bleed, overlaid copy — 1a) ============ -->
+  <section style="position:relative;width:100%;height:92vh;min-height:600px;overflow:hidden">
+    <div style="position:absolute;inset:0">
+      <image-slot id="aure-hero" shape="rect" fit="cover" placeholder="Drop hero image / video"></image-slot>
+    </div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,36,34,.28) 0%,rgba(42,36,34,.12) 40%,rgba(42,36,34,.5) 100%);pointer-events:none"></div>
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 44px 44px;pointer-events:none">
+      <div data-reveal="" style="font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">Vol. 1 — Out now</div>
+      <h1 data-reveal="" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(46px,7vw,100px);line-height:1.04;margin:24px auto 0;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 30px rgba(0,0,0,.35)">Defined by detail,<br>sewn in elegance</h1>
+      <div data-reveal="" style="margin-top:20px;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">Vol. 1 — Out now</div>
+      <div data-reveal="" style="margin-top:40px;pointer-events:auto">
+        <a href="#collection" style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.94);color:#2a2422;padding:16px 32px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:300;transition:background .35s ease,color .35s ease" style-hover="{ background:'#2a2422', color:'#ffffff' }">See Collection <span style="font-size:15px">↓</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OUR COLLECTION ============ -->
+  <section id="collection" style="padding:96px 44px 120px;scroll-margin-top:90px">
+    <div data-reveal="" style="text-align:center;margin-bottom:14px">
+      <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#b49aa0;font-weight:300">The Debut</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4.4vw,54px);margin:14px 0 0;color:#2a2422">Our Collection</h2>
+    </div>
+    <div style="max-width:1320px;margin:44px auto 0;position:relative" data-collection-grid="">
+      <div id="aure-rail" style="display:flex;gap:26px;overflow-x:auto;padding:4px 2px 6px">
+      <sc-for list="{{ dresses }}" as="d" hint-placeholder-count="5">
+        <div data-reveal="" onClick="{{ d.open }}" onMouseEnter="{{ d.enter }}" onMouseLeave="{{ d.leave }}" style="flex:0 0 clamp(230px,23vw,288px);position:relative;cursor:pointer;transform:{{ d.lift }};transition:transform .6s cubic-bezier(.16,.7,.3,1),box-shadow .6s ease;box-shadow:{{ d.shadow }};will-change:transform">
+          <div style="position:relative;width:100%;aspect-ratio:2/3;background:#f6f3f1;overflow:hidden">
+            <img src="{{ d.img1 }}" alt="{{ d.name }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%">
+            <img src="{{ d.img2 }}" alt="{{ d.name }} — detail" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;opacity:{{ d.hoverOp }};transition:opacity .3s ease;will-change:opacity">
+            <button onClick="{{ d.toggle }}" aria-label="Save to wishlist" style="position:absolute;top:12px;right:12px;z-index:5;width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,.86);backdrop-filter:blur(6px);display:grid;place-items:center;box-shadow:0 4px 14px -6px rgba(42,36,34,.4);transition:transform .3s ease" style-hover="{ transform:'scale(1.08)' }">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="{{ d.fill }}" stroke="{{ d.stroke }}" stroke-width="1.5"><path d="M12 20.5l-1.4-1.3C5.4 14.5 2 11.4 2 7.6 2 4.9 4.1 2.9 6.8 2.9c1.5 0 3 .7 3.9 1.9l1.3 1.6 1.3-1.6c.9-1.2 2.4-1.9 3.9-1.9 2.7 0 4.8 2 4.8 4.7 0 3.8-3.4 6.9-8.6 11.6z"></path></svg>
+            </button>
+          </div>
+          <div style="text-align:center;margin-top:18px;padding-bottom:34px">
+            <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:16px;letter-spacing:.05em;color:#2a2422">{{ d.name }}</div>
+            <div style="font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#a28b4c;font-weight:300;margin-top:6px">{{ d.tag }}</div>
+            <div style="display:inline-block;margin-top:12px;font-family:'Poppins',sans-serif;font-weight:300;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a807b;padding-bottom:4px;border-bottom:1px solid #d9cfa6">Enquire Now</div>
+          </div>
+        </div>
+      </sc-for>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:30px">
+        <input id="aure-rail-slider" type="range" min="0" max="1000" value="0" step="1" aria-label="Scroll the collection" style="width:min(220px,48vw)">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOUNDERS ============ -->
+  <section style="background:#f1eeef;padding:72px 44px">
+    <div data-reveal="" style="text-align:center;margin-bottom:44px">
+      <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#a28b4c;font-weight:300">BESPOKE</div>
+      <h2 style="font-family: 'Cormorant Garamond',serif; font-style: italic; font-weight: 500; font-size: clamp(34px,4.4vw,54px); margin: 14px 0 0; color: #2a2422; text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15)">Founders</h2>
+    </div>
+    <div style="max-width:1200px;margin:0 auto">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center">
+        <div data-reveal="" style="position:relative;width:100%;aspect-ratio:4/5;max-height:82vh;background:#e7e0dd">
+          <img src="assets/founders/bosses.webp" alt="Najia &amp; Izza" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        </div>
+        <div data-reveal="" style="text-align:center">
+          <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#a28b4c;font-weight:300">ORIGIN</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4vw,50px);margin:16px 0 0;color:#2a2422">Najia &amp; Izza</h3>
+          <p style="font-weight:200;font-size:15px;line-height:2;color:#6b6560;margin:24px auto 0;max-width:46ch">Placeholder text — a short introduction to Najia's philosophy and craft goes here. Speak to her heritage, her training, and the intention behind Auré: garments made slowly, worn for a lifetime. Replace this with the final copy when ready.</p>
+          <p style="font-weight:200;font-size:15px;line-height:2;color:#6b6560;margin:18px auto 0;max-width:46ch">A second paragraph can expand on the atelier and the hands behind each piece.</p>
+          <div style="margin-top:30px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#a28b4c">— N. Irfan, I. Shehryar</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GET IN TOUCH ============ -->
+  
+
+  <!-- ============ THE ART OF DRESSING (gallery marquee) ============ -->
+  <section id="contact" style="padding:110px 44px;scroll-margin-top:80px">
+    <div data-reveal="" style="text-align:center;margin-bottom:56px">
+      <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#b49aa0;font-weight:300">Enquiries &amp; Appointments</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4.4vw,54px);margin:14px 0 0;color:#2a2422">Get in touch</h2>
+      <p style="font-weight:200;font-size:18px;color:#6b6560;margin:22px auto 0;line-height:1.9;text-align:center;white-space:nowrap">For bespoke commissions, press, and private viewings at the atelier.</p>
+    </div>
+    <div style="max-width:940px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ece7e5;border:1px solid #ece7e5">
+      <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="3">
+        <a href="{{ c.href }}" data-reveal="" style="background: #fff; padding: 70px 28px; text-align: center; transition: background .4s ease; position: sticky; height: 246px" style-hover="{ background:'#faf8f7' }">
+          <div style="color:#a28b4c;display:flex;justify-content:center;margin-bottom:22px">{{ c.icon }}</div>
+          <div style="font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#b6aca7;font-weight:300">{{ c.label }}</div>
+          <div style="font-family: 'Cormorant Garamond',serif; font-style: italic; font-weight: 500; font-size: 23px; color: #2a2422; margin-top: 12px">{{ c.value }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </section><section id="clients" style="padding:90px 0 100px;background:#faf8f7;overflow:hidden;scroll-margin-top:80px">
+    <div data-reveal="" style="text-align:center;margin-bottom:48px;padding:0 44px">
+      <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#a28b4c;font-weight:300">Our Clients</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4.4vw,54px);margin:14px 0 0;color:#2a2422">The Art of Dressing</h2>
+    </div>
+    <div id="aure-carousel" style="position:relative;width:100%;overflow-x:auto;cursor:grab">
+      <div style="display:flex;gap:44px;width:max-content;padding:0 44px">
+        <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="8">
+          <div style="width:calc((100vw - 320px)/3.6);aspect-ratio:3/4;flex:none;position:relative;background:#eee6e3;overflow:hidden">
+            <img src="{{ g.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" draggable="false">
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#2a2422;color:#e9e2df;padding:70px 44px 50px;text-align:center">
+    <img src="assets/logo-white.png" alt="Auré" style="height:34px;margin-bottom:24px;opacity:.95">
+    <div style="font-weight:200;font-size:13px;letter-spacing:.05em;color:#b3a9a4;line-height:1.9;max-width:40ch;margin:0 auto">Couture, composed in quiet luxury.<br></div>
+    <div style="margin-top:34px;display:flex;gap:26px;justify-content:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8a807b;font-weight:300">
+      <span>© 2026 Auré</span><span>·</span><a href="#collection" onClick="{{ backToCollection }}" style="color:#c9b98a;letter-spacing:.18em" style-hover="{ color:'#a28b4c' }">Vol. 1</a><span>·</span><span>All rights reserved</span>
+    </div>
+  </footer>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  state = {
+    wishlist: [],
+    searchOpen: false,
+    wishOpen: false,
+    scrolled: false,
+    hovered: null,
+    searchQuery: '',
+    view: 'home',
+    activeDress: 'd1',
+    gi: 0,
+    size: null,
+    item: 'shirt',
+    qty: 1,
+    descOpen: true,
+    cart: [],
+    bagOpen: false,
+  };
+
+  DRESSES = [
+    { id: 'd1', name: 'Mist Green', tag: 'The Debut', img1: 'assets/dresses/mistgreen-1.webp', img2: 'assets/dresses/mistgreen-2.webp' },
+    { id: 'd2', name: 'Onyx Black', tag: 'The Debut', img1: 'assets/dresses/onyxblack-1.webp', img2: 'assets/dresses/onyxblack-2.webp' },
+    { id: 'd3', name: 'Rose Pink', tag: 'The Debut', img1: 'assets/dresses/rosepink-1.webp', img2: 'assets/dresses/rosepink-2.webp' },
+    { id: 'd4', name: 'Ruby Red', tag: 'The Debut', img1: 'assets/dresses/rubyred-1.webp', img2: 'assets/dresses/rubyred-2.webp' },
+    { id: 'd5', name: 'Silver Sage', tag: 'The Debut', img1: 'assets/dresses/silversage-1.webp', img2: 'assets/dresses/silversage-2.webp' },
+    { id: 'd6', name: 'Serein', tag: 'The Debut', img1: 'assets/dresses/serein-1.webp', img2: 'assets/dresses/serein-2.webp' },
+  ];
+
+  FILE = { d1: 'mistgreen.dc.html', d2: 'onyxblack.dc.html', d3: 'rosepink.dc.html', d4: 'rubyred.dc.html', d5: 'silversage.dc.html', d6: 'serein.dc.html' };
+
+  componentDidMount() {
+    // restore wishlist
+    try {
+      const saved = JSON.parse(localStorage.getItem('aure_wishlist') || '[]');
+      if (Array.isArray(saved)) this.setState({ wishlist: saved });
+    } catch (e) {}
+
+    // scroll state for header
+    this._onScroll = () => {
+      const s = window.scrollY > 24;
+      const d = window.scrollY > 30;
+      const patch = {};
+      if (s !== this.state.scrolled) patch.scrolled = s;
+      if (d !== this.state.deep) patch.deep = d;
+      if (Object.keys(patch).length) this.setState(patch);
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    // close dropdowns on outside click
+    this._onDoc = (e) => {
+      if (!e.target.closest('header')) this.setState({ searchOpen: false, wishOpen: false, bagOpen: false });
+    };
+    document.addEventListener('click', this._onDoc);
+
+    // enquiry list sync across pages
+    this._cartSync = () => this.setState({ cart: window.AureCart.read() });
+    window.addEventListener('aure-cart-change', this._cartSync);
+    this._cartSync();
+
+    // scroll reveal micro-interactions
+    this._reveal();
+
+    // Art of Dressing carousel: auto-scroll + trackpad/wheel horizontal scroll
+    this._initCarousel();
+
+    // Collection rail: wheel-to-horizontal + slider control
+    this._initRail();
+  }
+
+  _initRail() {
+    const rail = document.getElementById('aure-rail');
+    const slider = document.getElementById('aure-rail-slider');
+    if (!rail || !slider) return;
+    const maxScroll = () => Math.max(1, rail.scrollWidth - rail.clientWidth);
+    this._railScroll = () => { slider.value = String(Math.round(rail.scrollLeft / maxScroll() * 1000)); };
+    this._sliderInput = () => { rail.scrollLeft = (Number(slider.value) / 1000) * maxScroll(); };
+    rail.addEventListener('scroll', this._railScroll, { passive: true });
+    slider.addEventListener('input', this._sliderInput);
+    this._railEl = rail; this._sliderEl = slider;
+    requestAnimationFrame(this._railScroll);
+  }
+
+  _initCarousel() {
+    const track = document.getElementById('aure-carousel');
+    if (!track) return;
+    const BASE = 0.32, HOVER = 0.32;
+    let target = BASE, speed = BASE;
+    const half = () => track.scrollWidth / 2;
+    const wrap = () => {
+      const h = half();
+      if (h <= 0) return;
+      if (track.scrollLeft >= h) track.scrollLeft -= h;
+      else if (track.scrollLeft < 0) track.scrollLeft += h;
+    };
+    const tick = () => {
+      speed += (target - speed) * 0.06;
+      track.scrollLeft += speed;
+      wrap();
+      this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+    this._carEnter = () => { target = HOVER; };
+    this._carLeave = () => { target = BASE; };
+    this._carWheel = (e) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        track.scrollLeft += e.deltaX;
+        wrap();
+        e.preventDefault();
+      }
+    };
+    this._carScroll = () => wrap();
+    track.addEventListener('mouseenter', this._carEnter);
+    track.addEventListener('mouseleave', this._carLeave);
+    track.addEventListener('wheel', this._carWheel, { passive: false });
+    track.addEventListener('scroll', this._carScroll, { passive: true });
+    this._car = track;
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    document.removeEventListener('click', this._onDoc);
+    window.removeEventListener('aure-cart-change', this._cartSync);
+    if (this._io) this._io.disconnect();
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._car) {
+      this._car.removeEventListener('mouseenter', this._carEnter);
+      this._car.removeEventListener('mouseleave', this._carLeave);
+      this._car.removeEventListener('wheel', this._carWheel);
+      this._car.removeEventListener('scroll', this._carScroll);
+    }
+    if (this._railEl) {
+      this._railEl.removeEventListener('scroll', this._railScroll);
+      this._sliderEl.removeEventListener('input', this._sliderInput);
+    }
+  }
+
+  _reveal() {
+    const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
+    nodes.forEach((n, i) => {
+      n.style.opacity = '0';
+      n.style.transform = 'translateY(26px)';
+      n.style.transition = 'opacity .9s cubic-bezier(.16,.7,.3,1), transform .6s cubic-bezier(.16,.7,.3,1), box-shadow .8s cubic-bezier(.16,.7,.3,1)';
+      n.style.willChange = 'opacity, transform';
+    });
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          const el = en.target;
+          const sibs = Array.from(el.parentElement ? el.parentElement.querySelectorAll(':scope > [data-reveal]') : [el]);
+          const idx = Math.max(0, sibs.indexOf(el));
+          el.style.transitionDelay = (idx * 90) + 'ms';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+          this._io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    nodes.forEach((n) => this._io.observe(n));
+    // safety fallback
+    setTimeout(() => nodes.forEach((n) => { n.style.opacity = '1'; n.style.transform = 'translateY(0)'; }), 2600);
+  }
+
+  _save(list) {
+    try { localStorage.setItem('aure_wishlist', JSON.stringify(list)); } catch (e) {}
+  }
+
+  toggle = (id, e) => {
+    if (e) e.stopPropagation();
+    this.setState((s) => {
+      const has = s.wishlist.includes(id);
+      const list = has ? s.wishlist.filter((x) => x !== id) : [...s.wishlist, id];
+      this._save(list);
+      return { wishlist: list };
+    });
+  };
+
+  openDetail = (id) => {
+    this.setState({ view: 'detail', activeDress: id, gi: 0 });
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+  closeDetail = (e) => { if (e) e.preventDefault(); this.setState({ view: 'home' }); window.scrollTo({ top: 0, behavior: 'auto' }); };
+  backToCollection = (e) => {
+    if (e) e.preventDefault();
+    this.setState({ view: 'home' });
+    setTimeout(() => {
+      const el = document.querySelector('#collection');
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'auto' });
+    }, 0);
+  };
+
+  renderVals() {
+    const { wishlist, searchOpen, wishOpen, scrolled } = this.state;
+    const inWish = (id) => wishlist.includes(id);
+
+    const cart = this.state.cart || [];
+    const bagOpen = this.state.bagOpen;
+    const cartItems = cart.map((x) => ({
+      name: x.name, item: x.item, size: x.size, fabric: x.fabric, qty: x.qty, price: x.price, thumb: x.thumb,
+      remove: () => window.AureCart.remove(x.key),
+      inc: () => window.AureCart.setQty(x.key, (x.qty || 1) + 1),
+      dec: () => window.AureCart.setQty(x.key, (x.qty || 1) - 1),
+    }));
+    const cartCount = cart.reduce((n, x) => n + (x.qty || 1), 0);
+
+    const hov = this.state.hovered;
+    const dresses = this.DRESSES.map((d) => ({
+      ...d,
+      fill: inWish(d.id) ? '#a28b4c' : 'none',
+      stroke: inWish(d.id) ? '#a28b4c' : '#2a2422',
+      toggle: (e) => this.toggle(d.id, e),
+      open: () => { window.location.href = this.FILE[d.id]; },
+      enter: () => this.setState({ hovered: d.id }),
+      leave: () => this.setState((s) => (s.hovered === d.id ? { hovered: null } : null)),
+      hoverOp: hov === d.id ? 1 : 0,
+      lift: hov === d.id ? 'translateY(-12px)' : 'translateY(0)',
+      shadow: hov === d.id ? '0 30px 60px -24px rgba(42,36,34,.45)' : '0 0 0 rgba(42,36,34,0)',
+    }));
+
+    const wishItems = this.DRESSES.filter((d) => inWish(d.id)).map((d) => ({
+      name: d.name, tag: d.tag, thumb: d.img1, remove: () => this.toggle(d.id),
+    }));
+
+    const q = this.state.searchQuery.trim().toLowerCase();
+    const goToCollection = (e) => {
+      if (e) e.preventDefault();
+      this.setState({ searchOpen: false });
+      const el = document.querySelector('#collection');
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    };
+    const searchResults = q === '' ? [] : this.DRESSES.filter((d) => {
+      const hay = (d.name + ' ' + d.tag + ' vol 1 vol. 1 volume 1 vol1').toLowerCase();
+      return hay.includes(q);
+    }).map((d) => ({ name: d.name, tag: d.tag, img1: d.img1, go: () => { window.location.href = this.FILE[d.id]; } }));
+
+    const bridals = [
+      'assets/gallery/bridal-1.webp',
+      'assets/gallery/bridal-1b.webp',
+      'assets/gallery/bridal-2.webp',
+      'assets/gallery/bridal-3.webp',
+      'assets/gallery/bridal-4.webp',
+    ];
+    const gallery = [...bridals, ...bridals].map((img, i) => ({ img, key: i }));
+
+    const icon = (path) => React.createElement('svg', { width: 34, height: 34, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.2 }, path);
+    const contacts = [
+      { label: 'Email', value: 'its.aureofficial@gmail.com', href: 'mailto:its.aureofficial@gmail.com', icon: React.createElement('img', { src: 'assets/icons/mail.png', width: 34, height: 34, alt: '', style: { display: 'block' } }) },
+      { label: 'WhatsApp', value: '+92 321 8955558', href: 'https://wa.me/923218955558', icon: React.createElement('img', { src: 'assets/icons/whatsapp.png', width: 34, height: 34, alt: '', style: { display: 'block' } }) },
+      { label: 'Instagram', value: '@aure_officiall', href: 'https://instagram.com/aure_officiall', icon: React.createElement('img', { src: 'assets/icons/instagram.png', width: 34, height: 34, alt: '', style: { display: 'block' } }) },
+    ];
+
+    const darkNav = scrolled || this.state.view === 'detail';
+    const headerHidden = this.state.view === 'detail' && this.state.deep;
+
+    // ----- outfit detail -----
+    const ad = this.DRESSES.find((x) => x.id === this.state.activeDress) || this.DRESSES[0];
+    const pool = [ad.img1, ad.img2];
+    const gi = this.state.gi ? 1 : 0;
+    const thumbSeed = [
+      { real: true, placeholder: false, img: ad.img1, idx: 0 },
+      { real: true, placeholder: false, img: ad.img2, idx: 1 },
+      { real: false, placeholder: true, label: 'Back' },
+      { real: false, placeholder: true, label: 'Detail' },
+      { real: false, placeholder: true, label: 'Styling' },
+      { real: false, placeholder: true, label: 'Video' },
+    ];
+    const thumbs = thumbSeed.map((t) => ({
+      ...t,
+      select: t.real ? () => this.setState({ gi: t.idx }) : () => {},
+      border: t.real && t.idx === gi ? '#a28b4c' : '#efeae8',
+    }));
+    const pill = (sel) => ({ bg: sel ? '#2a2422' : '#fff', color: sel ? '#fff' : '#2a2422', border: sel ? '#2a2422' : '#e6e0dd' });
+    const sizes = ['XS', 'S', 'M', 'ML', 'L', 'XL'].map((sz) => ({ label: sz, ...pill(this.state.size === sz), on: () => this.setState({ size: sz }) }));
+    const items = ['Shirt', 'Culottes'].map((it) => ({ label: it, ...pill(this.state.item === it.toLowerCase()), on: () => this.setState({ item: it.toLowerCase() }) }));
+    const detail = {
+      name: ad.name, category: ad.tag,
+      mainA: pool[gi], mainB: pool[gi ? 0 : 1],
+      thumbs, sizes, items,
+      qty: this.state.qty,
+      descOpen: this.state.descOpen,
+      descRot: this.state.descOpen ? '0deg' : '180deg',
+      wishFill: inWish(ad.id) ? '#a28b4c' : 'none',
+      wishStroke: inWish(ad.id) ? '#a28b4c' : '#2a2422',
+      toggleWish: () => this.toggle(ad.id),
+    };
+
+    return {
+      showHome: this.state.view === 'home',
+      showDetail: this.state.view === 'detail',
+      detail,
+      openDetail: this.openDetail,
+      closeDetail: this.closeDetail,
+      backToCollection: this.backToCollection,
+      goToClients: (e) => {
+        if (e) e.preventDefault();
+        this.setState({ view: 'home' });
+        setTimeout(() => {
+          const el = document.querySelector('#clients');
+          if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+        }, 0);
+      },
+      noop: (e) => { if (e) e.preventDefault(); },
+      galleryPrev: () => this.setState((s) => ({ gi: s.gi ? 0 : 1 })),
+      galleryNext: () => this.setState((s) => ({ gi: s.gi ? 0 : 1 })),
+      incQty: () => this.setState((s) => ({ qty: s.qty + 1 })),
+      decQty: () => this.setState((s) => ({ qty: Math.max(1, s.qty - 1) })),
+      toggleDesc: () => this.setState((s) => ({ descOpen: !s.descOpen })),
+      enquireWhatsApp: () => {
+        const size = this.state.size || 'not selected yet';
+        const item = this.state.item ? this.state.item.charAt(0).toUpperCase() + this.state.item.slice(1) : 'not selected yet';
+        const qty = this.state.qty;
+        const msg =
+          `Hello Auré,\n\n` +
+          `I'd love to enquire about a piece from your Vol. 1 collection:\n\n` +
+          `• Piece: ${ad.name}\n` +
+          `• Item: ${item}\n` +
+          `• Size: ${size}\n` +
+          `• Fabric: Pure Raw Silk\n` +
+          `• Quantity: ${qty}\n\n` +
+          `Could you share availability, pricing, and next steps? Thank you.`;
+        window.open('https://wa.me/923218955558?text=' + encodeURIComponent(msg), '_blank');
+      },
+      dresses, gallery, contacts, wishItems,
+      wishCount: wishlist.length,
+      hasWish: wishlist.length > 0,
+      noWish: wishlist.length === 0,
+      wishHeartFill: wishlist.length > 0 ? '#a28b4c' : 'none',
+      scrollTop: (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+      toggleSearch: (e) => { e.stopPropagation(); this.setState((s) => ({ searchOpen: !s.searchOpen, wishOpen: false, bagOpen: false })); },
+      searchQuery: this.state.searchQuery,
+      onSearch: (e) => this.setState({ searchQuery: e.target.value }),
+      searchResults,
+      hasResults: searchResults.length > 0,
+      noResults: q !== '' && searchResults.length === 0,
+      searchIdle: q === '',
+      toggleWish: (e) => { e.stopPropagation(); this.setState((s) => ({ wishOpen: !s.wishOpen, searchOpen: false, bagOpen: false })); },
+      toggleBag: (e) => { e.stopPropagation(); this.setState((s) => ({ bagOpen: !s.bagOpen, searchOpen: false, wishOpen: false })); },
+      cartItems, cartCount,
+      hasCart: cart.length > 0,
+      noCart: cart.length === 0,
+      bagOpacity: bagOpen ? 1 : 0,
+      bagY: bagOpen ? '0' : '-8px',
+      bagPE: bagOpen ? 'auto' : 'none',
+      sendEnquiry: () => window.AureCart.send(),
+      clearCart: () => window.AureCart.clear(),
+      searchOpacity: searchOpen ? 1 : 0,
+      searchY: searchOpen ? '0' : '-8px',
+      searchPE: searchOpen ? 'auto' : 'none',
+      wishOpacity: wishOpen ? 1 : 0,
+      wishY: wishOpen ? '0' : '-8px',
+      wishPE: wishOpen ? 'auto' : 'none',
+      headerBg: darkNav ? 'rgba(255,255,255,.92)' : 'rgba(255,255,255,0)',
+      headerBorder: darkNav ? '#f1eeef' : 'rgba(241,238,239,0)',
+      navColor: darkNav ? '#b49ba4' : '#ffffff',
+      navContrast: darkNav ? '#ffffff' : '#2a2422',
+      logoWhiteOp: darkNav ? 0 : 1,
+      logoDarkOp: darkNav ? 1 : 0,
+      headerY: headerHidden ? '-115%' : '0',
+      headerPE: headerHidden ? 'none' : 'auto',
+    };
+  }
+}
+</script>
+</body>
+</html>
