@@ -4,8 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<style id="aure-splash-style">#aure-splash{position:fixed;inset:0;z-index:2147483000;background:#2a2422;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}#aure-splash img{height:54px;animation:aure-splash-p 1.6s ease-in-out infinite}#aure-splash.hide{opacity:0;pointer-events:none}@keyframes aure-splash-p{0%,100%{opacity:.35}50%{opacity:1}}</style>
 </head>
 <body>
+<div id="aure-splash"><img src="assets/logo-white.png" alt="Auré"></div>
+<script>(function(){var d=document;function boot(){var s=d.getElementById('aure-splash');if(!s)return;var t=Date.now();function ok(){return d.querySelector('header a')&&d.querySelectorAll('section,footer').length>0}function fin(){clearInterval(iv);clearTimeout(to);if(!s)return;s.classList.add('hide');setTimeout(function(){s&&s.parentNode&&s.parentNode.removeChild(s)},600)}var iv=setInterval(function(){if(ok()&&Date.now()-t>500)fin()},60),to=setTimeout(fin,6000)}if(d.readyState!=='loading')boot();else d.addEventListener('DOMContentLoaded',boot)})();</script>
 <x-dc>
 <helmet data-dc-atomics="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
