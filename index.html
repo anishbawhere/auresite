@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <script src="./support.js"></script>
 <style id="aure-splash-style">#aure-splash{position:fixed;inset:0;z-index:2147483000;background:#2a2422;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}#aure-splash img{height:54px;animation:aure-splash-p 1.6s ease-in-out infinite}#aure-splash.hide{opacity:0;pointer-events:none}@keyframes aure-splash-p{0%,100%{opacity:.35}50%{opacity:1}}</style>
 </head>
@@ -44,34 +46,52 @@
     .aure-contact{grid-template-columns:1fr !important}
   }
   @media (max-width:768px){
-    header{padding:14px 16px !important}
-    #collection{padding:60px 14px 72px !important}
-    #aure-rail > div{flex:0 0 62vw !important}
-    .aure-hero-sec{height:82vh !important;min-height:460px !important}
-    .aure-hero-copy{padding:96px 20px 40px !important}
-    #contact{padding:72px 18px !important}
-    #contact p{white-space:normal !important;font-size:15px !important}
-    .aure-gal-item{width:74vw !important}
-    .aure-drop{width:calc(100vw - 24px) !important;max-width:452px !important}
-    header > div:first-child{display:none !important}
+    header{display:flex !important;align-items:center;gap:12px;padding:12px 16px !important}
+    .aure-cta-link{display:none !important}
+    .aure-burger{display:grid !important}
+    .aure-logo{transform:translateY(-3px) scale(.66) !important;transform-origin:left center}
+    header > div:last-child{margin-left:auto !important;gap:16px !important}
     header > div:last-child > a{display:none !important}
     header > div:last-child > a + span{display:none !important}
+    .aure-hd-wish{display:grid !important}
+    .aure-hero-eyebrow2{display:none !important}
+    #collection{padding:44px 0 56px !important}
+    #aure-rail{display:grid !important;grid-template-columns:1fr 1fr !important;gap:2px !important;overflow:visible !important;padding:0 !important}
+    #aure-rail > div{flex:none !important}
+    .aure-sizes{display:block !important}
+    .aure-card-txt{padding:13px 8px 30px !important;margin-top:0 !important}
+    .aure-rail-ctrl{display:none !important}
+    .aure-hero-sec{height:78vh !important;min-height:440px !important}
+    .aure-hero-copy{padding:88px 22px 40px !important}
+    .aure-founders{gap:26px !important}
+    #contact{padding:60px 16px !important}
+    #contact p{white-space:normal !important;font-size:15px !important}
+    .aure-contact > a{height:auto !important;padding:42px 24px !important;position:static !important}
+    .aure-gal-item{width:76vw !important}
+    .aure-drop{width:calc(100vw - 24px) !important;max-width:452px !important}
+    .aure-mobile-menu{display:block !important}
+    .aure-tabbar{display:flex !important}
+    .aure-fab{display:flex !important}
+    .aure-page{padding-bottom:72px !important}
   }
 </style>
 </helmet>
 
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#2a2422"></rect><text x="50" y="66" font-family="Cormorant Garamond, Georgia, serif" font-style="italic" font-size="52" fill="#a28b4c" text-anchor="middle">A</text></svg></template>
 
-<div style="min-height:100vh;position:relative">
+<div class="aure-page" style="min-height:100vh;position:relative">
 
   <!-- ============ HEADER ============ -->
   <header style="position:fixed;top:0;left:0;right:0;z-index:60;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:22px 56px;background:{{ headerBg }};backdrop-filter:blur(14px);border-bottom:1px solid {{ headerBorder }};transform:translateY({{ headerY }});pointer-events:{{ headerPE }};transition:background .5s ease,border-color .5s ease,padding .5s ease,transform .45s ease">
-    <div style="justify-self:start">
-      <a href="#contact" style="display:inline-block;border:1px solid {{ navColor }};color:{{ navColor }};padding:12px 26px;font-size:13px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;transition:background .35s ease,color .35s ease,border-color .5s ease" style-hover="{ background:navColor, color:navContrast }">Get in touch</a>
+    <div style="justify-self:start;display:flex;align-items:center">
+      <button class="aure-burger" onClick="{{ toggleMenu }}" aria-label="Open menu" style="display:none;background:none;border:none;cursor:pointer;padding:6px;color:{{ navColor }};place-items:center;transition:color .5s ease">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg>
+      </button>
+      <a class="aure-cta-link" href="#contact" style="display:inline-block;border:1px solid {{ navColor }};color:{{ navColor }};padding:12px 26px;font-size:13px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;transition:background .35s ease,color .35s ease,border-color .5s ease" style-hover="{ background:navColor, color:navContrast }">Get in touch</a>
     </div>
-    <a href="#top" onClick="{{ scrollTop }}" style="justify-self:center;display:block;position:relative" aria-label="Auré — back to top">
+    <a class="aure-logo" href="#top" onClick="{{ scrollTop }}" style="justify-self:center;display:block;position:relative" aria-label="Auré — back to top">
       <img src="assets/logo-white.png" alt="Auré" style="height:48px;display:block;transition:opacity .5s ease;opacity:{{ logoWhiteOp }}">
-      <span aria-hidden="true" style="position:absolute;inset:0;width:109px;height:48px;display:block;background:#b49ba4;-webkit-mask:url('assets/logo-dark.png') center/contain no-repeat;mask:url('assets/logo-dark.png') center/contain no-repeat;transition:opacity .5s ease;opacity:{{ logoDarkOp }}"></span>
+      <img aria-hidden="true" src="assets/logo-nude.png" alt="" style="position:absolute;inset:0;height:48px;width:auto;display:block;transition:opacity .5s ease;opacity:{{ logoDarkOp }}">
     </a>
     <div style="justify-self:end;display:flex;align-items:center;gap:24px;position:relative">
       <a href="#collection" onClick="{{ backToCollection }}" style="color:{{ navColor }};font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:300;transition:color .5s ease;white-space:nowrap" style-hover="{ color:'#a28b4c' }">Vol. 1</a>
@@ -80,7 +100,7 @@
       <button onClick="{{ toggleSearch }}" aria-label="Search" style="background:none;border:none;cursor:pointer;padding:6px;color:{{ navColor }};display:grid;place-items:center;transition:color .5s ease">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
       </button>
-      <button onClick="{{ toggleWish }}" aria-label="Wishlist" style="background:none;border:none;cursor:pointer;padding:6px;color:{{ navColor }};display:grid;place-items:center;position:relative;transition:color .5s ease">
+      <button class="aure-hd-wish" onClick="{{ toggleWish }}" aria-label="Wishlist" style="background:none;border:none;cursor:pointer;padding:6px;color:{{ navColor }};display:grid;place-items:center;position:relative;transition:color .5s ease">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="{{ wishHeartFill }}" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5l-1.4-1.3C5.4 14.5 2 11.4 2 7.6 2 4.9 4.1 2.9 6.8 2.9c1.5 0 3 .7 3.9 1.9l1.3 1.6 1.3-1.6c.9-1.2 2.4-1.9 3.9-1.9 2.7 0 4.8 2 4.8 4.7 0 3.8-3.4 6.9-8.6 11.6z"></path></svg>
         <sc-if value="{{ hasWish }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:-2px;right:-4px;min-width:16px;height:16px;padding:0 4px;background:#a28b4c;color:#fff;border-radius:9px;font-size:10px;font-weight:400;display:grid;place-items:center;font-family:'Poppins'">{{ wishCount }}</span></sc-if>
       </button>
@@ -187,6 +207,26 @@
     </div>
   </header>
 
+  <!-- ============ MOBILE NAV DRAWER ============ -->
+  <div class="aure-mobile-menu" style="display:none;position:fixed;inset:0;z-index:80;pointer-events:{{ menuPE }}">
+    <div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(42,36,34,.45);opacity:{{ menuOverlay }};transition:opacity .4s ease"></div>
+    <nav style="position:absolute;top:0;left:0;bottom:0;width:80vw;max-width:330px;background:#fff;transform:translateX({{ menuX }});transition:transform .42s cubic-bezier(.16,.7,.3,1);display:flex;flex-direction:column;padding:26px 28px;box-shadow:18px 0 60px -30px rgba(42,36,34,.5)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:30px">
+        <img src="assets/logo-dark.png" alt="Auré" style="height:30px">
+        <button onClick="{{ closeMenu }}" aria-label="Close menu" style="background:none;border:none;font-size:28px;line-height:1;color:#8a807b;cursor:pointer;padding:0 2px">×</button>
+      </div>
+      <a href="#collection" onClick="{{ menuGoCollection }}" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:26px;color:#2a2422;padding:15px 0;border-bottom:1px solid #f1eeef">Vol. 1</a>
+      <a href="#clients" onClick="{{ menuGoClients }}" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:26px;color:#2a2422;padding:15px 0;border-bottom:1px solid #f1eeef">Features</a>
+      <a href="#contact" onClick="{{ goToContact }}" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:26px;color:#2a2422;padding:15px 0;border-bottom:1px solid #f1eeef">Get in touch</a>
+      <div style="margin-top:auto;padding-top:28px">
+        <div style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#b6aca7;margin-bottom:12px">Atelier</div>
+        <a href="mailto:its.aureofficial@gmail.com" style="display:block;font-size:13px;font-weight:300;color:#6b6560;padding:3px 0">its.aureofficial@gmail.com</a>
+        <a href="https://wa.me/923218955558" style="display:block;font-size:13px;font-weight:300;color:#6b6560;padding:3px 0">+92 321 8955558</a>
+        <a href="https://instagram.com/aure_officiall" style="display:block;font-size:13px;font-weight:300;color:#6b6560;padding:3px 0">@aure_officiall</a>
+      </div>
+    </nav>
+  </div>
+
   <span id="top"></span>
 
   <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
@@ -200,7 +240,7 @@
     <div class="aure-hero-copy" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 44px 44px;pointer-events:none">
       <div data-reveal="" style="font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">Vol. 1 — Out now</div>
       <h1 data-reveal="" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(46px,7vw,100px);line-height:1.04;margin:24px auto 0;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 30px rgba(0,0,0,.35)">Defined by detail,<br>sewn in elegance</h1>
-      <div data-reveal="" style="margin-top:20px;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">Vol. 1 — Out now</div>
+      <div class="aure-hero-eyebrow2" data-reveal="" style="margin-top:20px;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">Vol. 1 — Out now</div>
       <div data-reveal="" style="margin-top:40px;pointer-events:auto">
         <a href="#collection" style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.94);color:#2a2422;padding:16px 32px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:300;transition:background .35s ease,color .35s ease" style-hover="{ background:'#2a2422', color:'#ffffff' }">See Collection <span style="font-size:15px">↓</span></a>
       </div>
@@ -224,7 +264,8 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="{{ d.fill }}" stroke="{{ d.stroke }}" stroke-width="1.5"><path d="M12 20.5l-1.4-1.3C5.4 14.5 2 11.4 2 7.6 2 4.9 4.1 2.9 6.8 2.9c1.5 0 3 .7 3.9 1.9l1.3 1.6 1.3-1.6c.9-1.2 2.4-1.9 3.9-1.9 2.7 0 4.8 2 4.8 4.7 0 3.8-3.4 6.9-8.6 11.6z"></path></svg>
             </button>
           </div>
-          <div style="text-align:center;margin-top:18px;padding-bottom:34px">
+          <div class="aure-sizes" style="display:none;text-align:center;font-size:9.5px;letter-spacing:.04em;color:#8a807b;background:#f6f3f1;padding:8px 6px">XS,&nbsp; S,&nbsp; M,&nbsp; ML,&nbsp; L,&nbsp; XL,&nbsp; Customized,&nbsp; One&nbsp;Size</div>
+          <div class="aure-card-txt" style="text-align:center;margin-top:18px;padding-bottom:34px">
             <div style="font-family:'Poppins',sans-serif;font-weight:300;font-size:16px;letter-spacing:.05em;color:#2a2422">{{ d.name }}</div>
             <div style="font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#a28b4c;font-weight:300;margin-top:6px">{{ d.tag }}</div>
             <div style="display:inline-block;margin-top:12px;font-family:'Poppins',sans-serif;font-weight:300;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8a807b;padding-bottom:4px;border-bottom:1px solid #d9cfa6">Enquire Now</div>
@@ -232,7 +273,7 @@
         </div>
       </sc-for>
       </div>
-      <div style="display:flex;justify-content:center;margin-top:30px">
+      <div class="aure-rail-ctrl" style="display:flex;justify-content:center;margin-top:30px">
         <input id="aure-rail-slider" type="range" min="0" max="1000" value="0" step="1" aria-label="Scroll the collection" style="width:min(220px,48vw)">
       </div>
     </div>
@@ -305,9 +346,32 @@
   </footer>
   </sc-if>
 
+  <!-- ============ FLOATING WHATSAPP ============ -->
+  <a class="aure-fab" href="https://wa.me/923218955558" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" style="display:none;position:fixed;right:16px;bottom:84px;z-index:74;width:52px;height:52px;border-radius:50%;background:#b49ba4;border:1px solid rgba(255,255,255,.55);box-shadow:0 12px 30px -10px rgba(180,155,164,.75);align-items:center;justify-content:center">
+    <img src="assets/icons/whatsapp.png" alt="" style="width:25px;height:25px;filter:brightness(0) invert(1);opacity:.95">
+  </a>
+
+  <!-- ============ MOBILE BOTTOM TAB BAR ============ -->
+  <nav class="aure-tabbar" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:75;background:#fff;border-top:1px solid #f1eeef;padding:9px 6px calc(9px + env(safe-area-inset-bottom));align-items:flex-end;justify-content:space-around;box-shadow:0 -6px 24px -18px rgba(42,36,34,.5)">
+    <button onClick="{{ toggleWish }}" aria-label="Wishlist" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:#6b6560;position:relative;padding:2px 8px">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="{{ wishHeartFill }}" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5l-1.4-1.3C5.4 14.5 2 11.4 2 7.6 2 4.9 4.1 2.9 6.8 2.9c1.5 0 3 .7 3.9 1.9l1.3 1.6 1.3-1.6c.9-1.2 2.4-1.9 3.9-1.9 2.7 0 4.8 2 4.8 4.7 0 3.8-3.4 6.9-8.6 11.6z"></path></svg>
+      <span style="font-size:10px;letter-spacing:.05em;font-weight:300">Wishlist</span>
+      <sc-if value="{{ hasWish }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-3px;right:2px;min-width:15px;height:15px;padding:0 4px;background:#a28b4c;color:#fff;border-radius:8px;font-size:9px;font-weight:400;display:grid;place-items:center;font-family:'Poppins'">{{ wishCount }}</span></sc-if>
+    </button>
+    <button onClick="{{ scrollTop }}" aria-label="Home" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:#2a2422;padding:2px 8px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 11l8-7 8 7"></path><path d="M6 9.5V19h12V9.5"></path></svg>
+      <span style="font-size:10px;letter-spacing:.05em;font-weight:400">Home</span>
+    </button>
+    <button onClick="{{ toggleBag }}" aria-label="Enquiry list" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:#6b6560;position:relative;padding:2px 8px">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6.5 8.5h11l-1 11.5H7.5l-1-11.5z"></path><path d="M9 8.5V6.6a3 3 0 0 1 6 0v1.9"></path></svg>
+      <span style="font-size:10px;letter-spacing:.05em;font-weight:300">Cart</span>
+      <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-3px;right:2px;min-width:15px;height:15px;padding:0 4px;background:#a28b4c;color:#fff;border-radius:8px;font-size:9px;font-weight:400;display:grid;place-items:center;font-family:'Poppins'">{{ cartCount }}</span></sc-if>
+    </button>
+  </nav>
+
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
 class Component extends DCLogic {
   state = {
     wishlist: [],
@@ -326,6 +390,7 @@ class Component extends DCLogic {
     cart: [],
     bagOpen: false,
     hoverReady: false,
+    menuOpen: false,
   };
 
   DRESSES = [
@@ -471,6 +536,8 @@ class Component extends DCLogic {
           el.style.opacity = '1';
           el.style.transform = 'translateY(0)';
           this._io.unobserve(el);
+          // clear the stagger delay after reveal so hover reacts instantly
+          setTimeout(() => { el.style.transitionDelay = '0ms'; }, idx * 90 + 1000);
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
@@ -604,6 +671,10 @@ class Component extends DCLogic {
       toggleWish: () => this.toggle(ad.id),
     };
 
+    const closeMenu = () => this.setState({ menuOpen: false });
+    const scrollToId = (id) => { const el = document.querySelector(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); };
+    const menuNav = (id) => (e) => { if (e) e.preventDefault(); this.setState({ view: 'home', menuOpen: false }); setTimeout(() => scrollToId(id), 0); };
+
     return {
       showHome: this.state.view === 'home',
       showDetail: this.state.view === 'detail',
@@ -611,6 +682,14 @@ class Component extends DCLogic {
       openDetail: this.openDetail,
       closeDetail: this.closeDetail,
       backToCollection: this.backToCollection,
+      toggleMenu: (e) => { if (e) e.stopPropagation(); this.setState((s) => ({ menuOpen: !s.menuOpen, searchOpen: false, wishOpen: false, bagOpen: false })); },
+      closeMenu,
+      menuGoCollection: menuNav('#collection'),
+      menuGoClients: menuNav('#clients'),
+      goToContact: menuNav('#contact'),
+      menuPE: this.state.menuOpen ? 'auto' : 'none',
+      menuOverlay: this.state.menuOpen ? 1 : 0,
+      menuX: this.state.menuOpen ? '0' : '-100%',
       goToClients: (e) => {
         if (e) e.preventDefault();
         this.setState({ view: 'home' });
