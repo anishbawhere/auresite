@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Auré — Couture, Vol. 1</title>
@@ -14,7 +14,7 @@
 <script>(function(){var d=document;function boot(){var s=d.getElementById('aure-splash');if(!s)return;var t=Date.now();function ok(){return d.querySelector('header a')&&d.querySelectorAll('section,footer').length>0}function fin(){clearInterval(iv);clearTimeout(to);if(!s)return;s.classList.add('hide');setTimeout(function(){s&&s.parentNode&&s.parentNode.removeChild(s)},600)}var iv=setInterval(function(){if(ok()&&Date.now()-t>500)fin()},60),to=setTimeout(fin,6000)}if(d.readyState!=='loading')boot();else d.addEventListener('DOMContentLoaded',boot)})();</script>
 <x-dc>
 <helmet data-dc-atomics="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://unpkg.com" crossorigin="">
 <link rel="preload" as="script" crossorigin="" href="https://unpkg.com/react@18.3.1/umd/react.production.min.js">
 <link rel="preload" as="script" crossorigin="" href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js">
@@ -83,7 +83,7 @@
 <div class="aure-page" style="min-height:100vh;position:relative">
 
   <!-- ============ HEADER ============ -->
-  <header style="position:fixed;top:0;left:0;right:0;z-index:60;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:22px 56px;background:{{ headerBg }};backdrop-filter:blur(14px);border-bottom:1px solid {{ headerBorder }};transform:translateY({{ headerY }});pointer-events:{{ headerPE }};transition:background .5s ease,border-color .5s ease,padding .5s ease,transform .45s ease">
+  <header style="position:fixed;top:0;left:0;right:0;z-index:60;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:22px 56px;background:{{ headerBg }};backdrop-filter:{{ headerBlur }};border-bottom:1px solid {{ headerBorder }};transform:translateY({{ headerY }});pointer-events:{{ headerPE }};transition:background .5s ease,border-color .5s ease,padding .5s ease,transform .45s ease">
     <div style="justify-self:start;display:flex;align-items:center">
       <button class="aure-burger" onClick="{{ toggleMenu }}" aria-label="Open menu" style="display:none;background:none;border:none;cursor:pointer;padding:6px;color:{{ navColor }};place-items:center;transition:color .5s ease">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg>
@@ -235,13 +235,13 @@
   <!-- ============ HERO (full-bleed, overlaid copy — 1a) ============ -->
   <section class="aure-hero-sec" style="position:relative;width:100%;height:92vh;min-height:600px;overflow:hidden">
     <div style="position:absolute;inset:0">
-      <image-slot id="aure-hero" shape="rect" fit="cover" placeholder="Drop hero image / video"></image-slot>
+      <image-slot id="aure-hero" shape="rect" fit="cover" src="assets/hero.webp" placeholder="Drop hero image / video"></image-slot>
     </div>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,36,34,.28) 0%,rgba(42,36,34,.12) 40%,rgba(42,36,34,.5) 100%);pointer-events:none"></div>
     <div class="aure-hero-copy" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 44px 44px;pointer-events:none">
       <div data-reveal="" style="font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">Vol. 1 — Out now</div>
       <h1 data-reveal="" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(46px,7vw,100px);line-height:1.04;margin:24px auto 0;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 30px rgba(0,0,0,.35)">Defined by detail,<br>sewn in elegance</h1>
-      <div class="aure-hero-eyebrow2" data-reveal="" style="margin-top:20px;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">Vol. 1 — Out now</div>
+      <div class="aure-hero-eyebrow2" data-reveal="" style="margin-top:20px;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">VOL. 2 — COMING SOON</div>
       <div data-reveal="" style="margin-top:40px;pointer-events:auto">
         <a href="#collection" style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.94);color:#2a2422;padding:16px 32px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:300;transition:background .35s ease,color .35s ease" style-hover="{ background:'#2a2422', color:'#ffffff' }">See Collection <span style="font-size:15px">↓</span></a>
       </div>
@@ -281,22 +281,25 @@
   </section>
 
   <!-- ============ FOUNDERS ============ -->
-  <section style="background:#f1eeef;padding:44px 44px">
-    <div data-reveal="" style="text-align:center;margin-bottom:22px">
-      <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#a28b4c;font-weight:300">BESPOKE</div>
-      <h2 style="font-family: 'Cormorant Garamond',serif; font-style: italic; font-weight: 500; font-size: clamp(34px,4.4vw,54px); margin: 14px 0 0; color: #2a2422; text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15)">Founders</h2>
+  <section style="background:#f1eeef;padding:44px 44px 32px">
+    <div data-reveal="" style="text-align:center;margin-bottom:14px">
+      <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#a28b4c;font-weight:300">BESPOKE</div><h2 style="font-family: 'Cormorant Garamond',serif; font-style: italic; font-weight: 500; font-size: clamp(34px,4.4vw,54px); margin: 14px 0 0; color: #2a2422; text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15)">Founders</h2>
+      
     </div>
     <div style="max-width:1200px;margin:0 auto">
-      <div class="aure-founders" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
+      <div class="aure-founders" style="display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:48px;align-items:center">
         <div data-reveal="" style="position:relative;width:100%;aspect-ratio:1080/1350;max-height:64vh;background:#e7e0dd">
-          <img src="assets/founders/bosses.webp" alt="Najia &amp; Izza" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <image-slot id="aure-founder-l" shape="rect" fit="cover" src="assets/founders/najia.webp" placeholder="Drop founder photo (left)"></image-slot>
         </div>
         <div data-reveal="" style="text-align:center">
-          <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#a28b4c;font-weight:300">ORIGIN</div>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4vw,50px);margin:16px 0 0;color:#2a2422">Najia &amp; Izza</h3>
-          <p style="font-weight:200;font-size:15px;line-height:2;color:#6b6560;margin:24px auto 0;max-width:46ch">Placeholder text — a short introduction to Najia's philosophy and craft goes here. Speak to her heritage, her training, and the intention behind Auré: garments made slowly, worn for a lifetime. Replace this with the final copy when ready.</p>
-          <p style="font-weight:200;font-size:15px;line-height:2;color:#6b6560;margin:18px auto 0;max-width:46ch">A second paragraph can expand on the atelier and the hands behind each piece.</p>
-          <div style="margin-top:30px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#a28b4c">— N. Irfan, I. Shehryar</div>
+          
+          
+          <h3 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4vw,50px);margin:0 0 0;color:#2a2422">Najia &amp; Izza</h3><p style="font-weight:200;font-size:15px;line-height:1.85;color:#6b6560;margin:18px auto 0;max-width:46ch">What started as a small idea between us slowly grew into something much bigger than we imagined. It became a way of celebrating the craftsmanship and heritage that have always made Pakistan special.&nbsp;</p>
+          <p style="font-weight:200;font-size:15px;line-height:1.85;color:#6b6560;margin:14px auto 0;max-width:46ch"><span style="letter-spacing: 0.2px;">For Najia, this journey is shaped by over fifteen years of designing garments with patience and purpose.&nbsp;</span>For Izza, whose background is in interior design, it comes from an eye for balance, texture, and thoughtful detail. Together, our different paths found a shared vision: creating pieces that honour our heritage with quiet confidence. <em>"Defined by detail, sewn in elegance"</em> is more than a motto to us—it is the standard behind everything we create.</p>
+          <div style="margin-top:22px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#a28b4c">— N. Irfan, I. Shehryar</div>
+        </div>
+        <div data-reveal="" style="position:relative;width:100%;aspect-ratio:1080/1350;max-height:64vh;background:#e7e0dd">
+          <image-slot id="aure-founder-r" shape="rect" fit="cover" src="assets/founders/izza.webp" placeholder="Drop founder photo (right)"></image-slot>
         </div>
       </div>
     </div>
@@ -306,7 +309,7 @@
   
 
   <!-- ============ THE ART OF DRESSING (gallery marquee) ============ -->
-  <section id="contact" style="padding:110px 44px;scroll-margin-top:80px">
+  <section id="contact" style="padding:64px 44px 110px;scroll-margin-top:80px">
     <div data-reveal="" style="text-align:center;margin-bottom:56px">
       <div style="font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#b49aa0;font-weight:300">Enquiries &amp; Appointments</div>
       <h2 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4.4vw,54px);margin:14px 0 0;color:#2a2422">Get in touch</h2>
@@ -330,7 +333,7 @@
       <div style="display:flex;gap:44px;width:max-content;padding:0 44px">
         <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="8">
           <div class="aure-gal-item" style="width:calc((100vw - 320px)/3.6);aspect-ratio:3/4;flex:none;position:relative;background:#eee6e3;overflow:hidden">
-            <img src="{{ g.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" draggable="false">
+            <img src="{{ g.img }}" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" draggable="false">
           </div>
         </sc-for>
       </div>
@@ -750,6 +753,7 @@ class Component extends DCLogic {
       wishY: wishOpen ? '0' : '-8px',
       wishPE: wishOpen ? 'auto' : 'none',
       headerBg: darkNav ? 'rgba(255,255,255,.92)' : 'rgba(255,255,255,0)',
+      headerBlur: darkNav ? 'blur(14px)' : 'none',
       headerBorder: darkNav ? '#f1eeef' : 'rgba(241,238,239,0)',
       navColor: darkNav ? '#b49ba4' : '#ffffff',
       navContrast: darkNav ? '#ffffff' : '#2a2422',

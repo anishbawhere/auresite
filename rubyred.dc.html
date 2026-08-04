@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Ruby Red — Auré Vol. 1</title>
@@ -14,7 +14,7 @@
 <script>(function(){var d=document;function boot(){var s=d.getElementById('aure-splash');if(!s)return;var t=Date.now();function ok(){return d.querySelector('header a')&&d.querySelectorAll('section,footer').length>0}function fin(){clearInterval(iv);clearTimeout(to);if(!s)return;s.classList.add('hide');setTimeout(function(){s&&s.parentNode&&s.parentNode.removeChild(s)},600)}var iv=setInterval(function(){if(ok()&&Date.now()-t>500)fin()},60),to=setTimeout(fin,6000)}if(d.readyState!=='loading')boot();else d.addEventListener('DOMContentLoaded',boot)})();</script>
 <x-dc>
 <helmet data-dc-atomics="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://unpkg.com" crossorigin="">
 <link rel="preload" as="script" crossorigin="" href="https://unpkg.com/react@18.3.1/umd/react.production.min.js">
 <link rel="preload" as="script" crossorigin="" href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js">
@@ -134,13 +134,9 @@
       <!-- LEFT — gallery -->
       <div>
         <div style="position:relative">
-          <div class="aure-gallery" style="display:flex;gap:14px;flex-direction:{{ dir }}">
-            <div style="flex:1;position:relative;aspect-ratio:3/4;background:#f6f3f1;overflow:hidden">
-              <img loading="lazy" decoding="async" src="assets/dresses/rubyred-1.webp" alt="Ruby Red" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
-            </div>
-            <div style="flex:1;position:relative;aspect-ratio:3/4;background:#f6f3f1;overflow:hidden">
-              <img loading="lazy" decoding="async" src="assets/dresses/rubyred-2.webp" alt="Ruby Red — detail" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
-            </div>
+          <div class="aure-gallery" style="display:flex;gap:14px">
+            <div style="flex:1;position:relative;aspect-ratio:3/4;background:#f6f3f1;overflow:hidden">{{ leftImg }}</div>
+            <div style="flex:1;position:relative;aspect-ratio:3/4;background:#f6f3f1;overflow:hidden">{{ rightImg }}</div>
           </div>
 
           <div style="position:absolute;top:16px;right:16px;z-index:5;display:flex;flex-direction:column;align-items:flex-end;gap:10px">
@@ -158,22 +154,27 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2a2422" stroke-width="1.4"><polyline points="9 5 16 12 9 19"></polyline></svg>
           </button>
 
-          <button aria-label="Expand" style="position:absolute;right:16px;bottom:16px;z-index:5;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;background:#2a2422;display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(42,36,34,.6)" style-hover="{ background:'#000000' }">
+          <button onClick="{{ zoomActive }}" aria-label="Expand" style="position:absolute;right:16px;bottom:16px;z-index:5;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;background:#2a2422;display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(42,36,34,.6)" style-hover="{ background:'#000000' }">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
           </button>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:14px">
-          <button onClick="{{ showFirst }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ b0 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px">
+          <button onClick="{{ sel0 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb0 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
             <img loading="lazy" decoding="async" src="assets/dresses/rubyred-1.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
           </button>
-          <button onClick="{{ showSecond }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ b1 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
+          <button onClick="{{ sel1 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb1 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
             <img loading="lazy" decoding="async" src="assets/dresses/rubyred-2.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
           </button>
-          <div style="position:relative;aspect-ratio:3/4;border:1px solid #efeae8;background:repeating-linear-gradient(45deg,#f2efec,#f2efec 7px,#eae4e0 7px,#eae4e0 14px);display:grid;place-items:center"><span style="font-family:'Poppins',monospace;font-size:9px;letter-spacing:.08em;color:#b6aca7;text-transform:uppercase;background:rgba(255,255,255,.75);padding:2px 6px">Back</span></div>
-          <div style="position:relative;aspect-ratio:3/4;border:1px solid #efeae8;background:repeating-linear-gradient(45deg,#f2efec,#f2efec 7px,#eae4e0 7px,#eae4e0 14px);display:grid;place-items:center"><span style="font-family:'Poppins',monospace;font-size:9px;letter-spacing:.08em;color:#b6aca7;text-transform:uppercase;background:rgba(255,255,255,.75);padding:2px 6px">Detail</span></div>
-          <div style="position:relative;aspect-ratio:3/4;border:1px solid #efeae8;background:repeating-linear-gradient(45deg,#f2efec,#f2efec 7px,#eae4e0 7px,#eae4e0 14px);display:grid;place-items:center"><span style="font-family:'Poppins',monospace;font-size:9px;letter-spacing:.08em;color:#b6aca7;text-transform:uppercase;background:rgba(255,255,255,.75);padding:2px 6px">Styling</span></div>
-          <div style="position:relative;aspect-ratio:3/4;border:1px solid #efeae8;background:repeating-linear-gradient(45deg,#f2efec,#f2efec 7px,#eae4e0 7px,#eae4e0 14px);display:grid;place-items:center"><span style="font-family:'Poppins',monospace;font-size:9px;letter-spacing:.08em;color:#b6aca7;text-transform:uppercase;background:rgba(255,255,255,.75);padding:2px 6px">Video</span></div>
+          <button onClick="{{ sel2 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb2 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
+            <img loading="lazy" decoding="async" src="assets/dresses/rubyred-3.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
+          </button>
+          <button onClick="{{ sel3 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb3 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
+            <img loading="lazy" decoding="async" src="assets/dresses/rubyred-4.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
+          </button>
+          <button onClick="{{ sel4 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb4 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
+            <img loading="lazy" decoding="async" src="assets/dresses/rubyred-5.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
+          </button>
         </div>
       </div>
 
@@ -208,7 +209,7 @@
         </div>
 
         <div style="display:flex;justify-content:flex-end;margin-top:24px;margin-bottom:12px">
-          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#8a807b;font-weight:300;cursor:pointer" style-hover="{ color:'#a28b4c' }"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="8" width="20" height="8" rx="2"></rect><line x1="7" y1="8" x2="7" y2="11.5"></line><line x1="12" y1="8" x2="12" y2="11.5"></line><line x1="17" y1="8" x2="17" y2="11.5"></line></svg>Size Chart</span>
+          <span onClick="{{ zoomSize }}" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#8a807b;font-weight:300;cursor:pointer" style-hover="{ color:'#a28b4c' }"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="8" width="20" height="8" rx="2"></rect><line x1="7" y1="8" x2="7" y2="11.5"></line><line x1="12" y1="8" x2="12" y2="11.5"></line><line x1="17" y1="8" x2="17" y2="11.5"></line></svg>Size Chart</span>
         </div>
         <div style="display:flex;align-items:center;gap:20px">
           <span style="width:56px;flex:none;font-size:14px;font-weight:400;color:{{ sizeLabelColor }};transition:color .3s ease">Size</span>
@@ -256,7 +257,7 @@
           </button>
           <sc-if value="{{ descOpen }}" hint-placeholder-val="{{ true }}">
             <div style="padding:0 24px 26px">
-              <p style="font-weight:200;font-size:14px;line-height:2;color:#6b6560;margin:0">Placeholder description — write the story of this piece here: the silhouette, the hand-finished details, the fabric and the feeling it's made to give. Speak to how it's cut, what it's paired with, and the occasion it was designed for. Replace with the final copy when ready.</p>
+              <p style="font-weight:200;font-size:14px;line-height:2;color:#6b6560;margin:0">RUBY RED features a shower of floral motifs and intricate needlework down the neckline, creating a striking and elegant statement. This design combines intense, deep red tones with detailed craftsmanship for a sophisticated look.</p>
               <div style="height:1px;background:#f1eeef;margin:22px 0"></div>
               <div style="display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:14px;line-height:1.6">
                 <span style="font-weight:400;color:#2a2422">Length</span><span style="font-weight:200;color:#6b6560">00 in</span>
@@ -302,11 +303,18 @@
     </button>
   </nav>
 
+  <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ bgClose }}" style="position:fixed;inset:0;z-index:130;background:rgba(24,20,19,.94);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:40px;cursor:zoom-out">
+      {{ lbImg }}
+      <button onClick="{{ closeLb }}" aria-label="Close" style="position:fixed;top:20px;right:22px;width:46px;height:46px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(4px)">✕</button>
+    </div>
+  </sc-if>
+
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { wishlist: [], rev: false, size: null, item: 'shirt', fabric: 'net', qty: 1, descOpen: true, deep: false, cart: [], bagOpen: false, err: null };
+  state = { wishlist: [], rev: false, size: null, item: 'shirt', fabric: 'net', qty: 1, descOpen: true, deep: false, cart: [], bagOpen: false, err: null, lb: null, active: 0, lbScale: 1, lbPan: { x: 0, y: 0 } };
 
   DRESS = { name: 'Ruby Red', img1: 'assets/dresses/rubyred-1.webp', img2: 'assets/dresses/rubyred-2.webp', slug: 'd4' };
 
@@ -325,11 +333,22 @@ class Component extends DCLogic {
     this._cartSync();
     this._onDoc = (e) => { if (!e.target.closest('header')) this.setState({ bagOpen: false }); };
     document.addEventListener('click', this._onDoc);
+    this._onLbMove = (e) => {
+      if (!this._drag) return;
+      const dx = e.clientX - this._drag.sx, dy = e.clientY - this._drag.sy;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) this._moved = true;
+      this.setState({ lbPan: { x: this._drag.px + dx, y: this._drag.py + dy } });
+    };
+    this._onLbUp = () => { if (this._drag) { this._drag = null; this.forceUpdate(); } };
+    window.addEventListener('mousemove', this._onLbMove);
+    window.addEventListener('mouseup', this._onLbUp);
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('aure-cart-change', this._cartSync);
     document.removeEventListener('click', this._onDoc);
+    window.removeEventListener('mousemove', this._onLbMove);
+    window.removeEventListener('mouseup', this._onLbUp);
   }
 
   _save(list) { try { localStorage.setItem('aure_wishlist', JSON.stringify(list)); } catch (e) {} }
@@ -346,6 +365,12 @@ class Component extends DCLogic {
 
   renderVals() {
     const d = this.DRESS;
+    const base = d.img1.replace('-1.webp','');
+    const galN = d.n || 5;
+    const gallery = [d.img1, d.img2, base+'-3.webp', base+'-4.webp', base+'-5.webp'].slice(0, galN);
+    const galAct = (((this.state.active||0)%galN)+galN)%galN;
+    const galNext = (galAct+1)%galN;
+    const mkGal = (src, click) => React.createElement('img', { loading:'lazy', decoding:'async', src, onClick:click, style:{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 20%', cursor:'zoom-in' } });
     const inWish = this.state.wishlist.includes(d.slug);
     const rev = this.state.rev;
     const pill = (sel) => ({ bg: sel ? '#2a2422' : '#fff', color: sel ? '#fff' : '#2a2422', border: sel ? '#2a2422' : '#e6e0dd' });
@@ -370,6 +395,44 @@ class Component extends DCLogic {
     const bagOpen = this.state.bagOpen;
 
     return {
+      lbOpen: !!this.state.lb, lbImg: this.state.lb ? (() => {
+        const sc = this.state.lbScale || 1;
+        const p = this.state.lbPan || { x: 0, y: 0 };
+        const zoomed = sc > 1;
+        return React.createElement('img', {
+          src: this.state.lb, alt: 'Zoomed view', draggable: false,
+          onClick: (e) => {
+            e.stopPropagation();
+            if (this._moved) { this._moved = false; return; }
+            if (zoomed) this.setState({ lbScale: 1, lbPan: { x: 0, y: 0 } });
+            else this.setState({ lbScale: 2.4 });
+          },
+          onMouseDown: (e) => {
+            if (!(sc > 1)) return;
+            e.preventDefault(); e.stopPropagation();
+            this._drag = { sx: e.clientX, sy: e.clientY, px: p.x, py: p.y };
+            this._moved = false;
+          },
+          style: {
+            maxWidth: 'min(94vw,1150px)', maxHeight: '92vh', objectFit: 'contain',
+            boxShadow: '0 40px 90px -25px rgba(0,0,0,.75)',
+            transform: 'translate(' + p.x + 'px,' + p.y + 'px) scale(' + sc + ')',
+            transition: this._drag ? 'none' : 'transform .3s ease',
+            cursor: zoomed ? (this._drag ? 'grabbing' : 'grab') : 'zoom-in',
+            userSelect: 'none', willChange: 'transform'
+          }
+        });
+      })() : null,
+      closeLb: () => this.setState({ lb: null, lbScale: 1, lbPan: { x: 0, y: 0 } }),
+      bgClose: () => { if (this._moved) { this._moved = false; return; } this.setState({ lb: null, lbScale: 1, lbPan: { x: 0, y: 0 } }); },
+      leftImg: mkGal(gallery[galAct], () => this.setState({ lb: gallery[galAct] })),
+      rightImg: mkGal(gallery[galNext], () => this.setState({ lb: gallery[galNext] })),
+      zoomActive: () => this.setState({ lb: gallery[galAct] }),
+      galleryPrev: () => this.setState((s) => ({ active: ((((s.active||0)-1)%galN)+galN)%galN })),
+      galleryNext: () => this.setState((s) => ({ active: ((s.active||0)+1)%galN })),
+      sel0:()=>this.setState({active:0}), sel1:()=>this.setState({active:1}), sel2:()=>this.setState({active:2}), sel3:()=>this.setState({active:3}), sel4:()=>this.setState({active:4}),
+      tb0: galAct===0?'#a28b4c':'#efeae8', tb1: galAct===1?'#a28b4c':'#efeae8', tb2: galAct===2?'#a28b4c':'#efeae8', tb3: galAct===3?'#a28b4c':'#efeae8', tb4: galAct===4?'#a28b4c':'#efeae8',
+      zoomSize: () => this.setState({ lb: 'assets/size-guide.webp' }),
       dir: rev ? 'row-reverse' : 'row',
       b0: rev ? '#efeae8' : '#a28b4c',
       b1: rev ? '#a28b4c' : '#efeae8',
@@ -400,10 +463,6 @@ class Component extends DCLogic {
         window.AureCart.add({ key, slug: d.slug, name: d.name, item: curItem.label, fabric: curFabric.label, size, qty: this.state.qty, price, thumb: d.img1 });
         this.setState({ bagOpen: true, err: null });
       },
-      showFirst: () => this.setState({ rev: false }),
-      showSecond: () => this.setState({ rev: true }),
-      galleryPrev: () => this.setState((s) => ({ rev: !s.rev })),
-      galleryNext: () => this.setState((s) => ({ rev: !s.rev })),
       incQty: () => this.setState((s) => ({ qty: s.qty + 1 })),
       decQty: () => this.setState((s) => ({ qty: Math.max(1, s.qty - 1) })),
       toggleDesc: () => this.setState((s) => ({ descOpen: !s.descOpen })),
