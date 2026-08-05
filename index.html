@@ -56,12 +56,12 @@
     header > div:last-child > a + span{display:none !important}
     .aure-hd-wish{display:grid !important}
     .aure-hero-eyebrow2{display:none !important}
-    #collection{padding:44px 0 56px !important}
+    #collection{padding:44px 12px 56px !important}
     #aure-rail{display:grid !important;grid-template-columns:1fr 1fr !important;gap:2px !important;overflow:visible !important;padding:0 !important}
     #aure-rail > div{flex:none !important}
     .aure-card-txt{padding:13px 8px 30px !important;margin-top:0 !important}
     .aure-rail-ctrl{display:none !important}
-    .aure-hero-sec{height:78vh !important;min-height:440px !important}
+    .aure-hero-sec{height:78svh !important;min-height:440px !important}
     .aure-hero-copy{padding:88px 22px 40px !important}
     .aure-founders{grid-template-columns:1fr 1fr !important;gap:14px !important;max-width:420px !important;margin:0 auto !important;align-items:start !important}
     .aure-founders > div:nth-child(1){grid-column:1 !important;grid-row:1 !important}
@@ -236,14 +236,14 @@
   <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
 
   <!-- ============ HERO (full-bleed, overlaid copy — 1a) ============ -->
-  <section class="aure-hero-sec" style="position:relative;width:100%;height:92vh;min-height:600px;overflow:hidden">
+  <section class="aure-hero-sec" style="position:relative;width:100%;height:92svh;min-height:600px;overflow:hidden">
     <div style="position:absolute;inset:0">
-      <img src="assets/hero.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      <img src="assets/hero-model.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:35% center;display:block">
     </div>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,36,34,.28) 0%,rgba(42,36,34,.12) 40%,rgba(42,36,34,.5) 100%);pointer-events:none"></div>
-    <div class="aure-hero-copy" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 44px 44px;pointer-events:none">
+    <div class="aure-hero-copy" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;text-align:right;padding:120px 7vw 44px;pointer-events:none">
       <div data-reveal="" style="font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">Vol. 1 — Out now</div>
-      <h1 data-reveal="" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(46px,7vw,100px);line-height:1.04;margin:24px auto 0;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 30px rgba(0,0,0,.35)">Defined by detail,<br>sewn in elegance</h1>
+      <h1 data-reveal="" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(38px,5.4vw,78px);line-height:1.05;margin:22px 0 0;color:#fff;letter-spacing:-.01em;text-shadow:0 2px 30px rgba(0,0,0,.35)">Defined by detail,<br>sewn in elegance</h1>
       <div class="aure-hero-eyebrow2" data-reveal="" style="margin-top:20px;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:#f1eeef;font-weight:300;text-shadow:0 1px 12px rgba(0,0,0,.4)">VOL. 2 — COMING SOON</div>
       <div data-reveal="" style="margin-top:40px;pointer-events:auto">
         <a href="#collection" style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.94);color:#2a2422;padding:16px 32px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:300;transition:background .35s ease,color .35s ease" style-hover="{ background:'#2a2422', color:'#ffffff' }">See Collection <span style="font-size:15px">↓</span></a>
@@ -354,7 +354,7 @@
   </sc-if>
 
   <!-- ============ FLOATING WHATSAPP ============ -->
-  <a class="aure-fab" href="https://wa.me/923218955558" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" style="display:none;position:fixed;right:16px;bottom:84px;z-index:74;width:52px;height:52px;border-radius:50%;background:#b49ba4;border:1px solid rgba(255,255,255,.55);box-shadow:0 12px 30px -10px rgba(180,155,164,.75);align-items:center;justify-content:center">
+  <a class="aure-fab" href="https://wa.me/923218955558" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" style="display:none;position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:76;width:52px;height:52px;border-radius:50%;background:#b49ba4;border:1px solid rgba(255,255,255,.55);box-shadow:0 12px 30px -10px rgba(180,155,164,.75);align-items:center;justify-content:center">
     <img src="assets/icons/whatsapp.png" alt="" style="width:25px;height:25px;filter:brightness(0) invert(1);opacity:.95">
   </a>
 
@@ -585,8 +585,7 @@ class Component extends DCLogic {
     }, 0);
   };
 
-  renderVals() {
-    const { wishlist, searchOpen, wishOpen, scrolled } = this.state;
+  renderVals() {    const { wishlist, searchOpen, wishOpen, scrolled } = this.state;
     const inWish = (id) => wishlist.includes(id);
 
     const cart = this.state.cart || [];
@@ -637,6 +636,7 @@ class Component extends DCLogic {
       'assets/gallery/bridal-2.webp',
       'assets/gallery/bridal-3.webp',
       'assets/gallery/bridal-4.webp',
+      'assets/gallery/bridal-lake.webp',
     ];
     const gallery = [...bridals, ...bridals].map((img, i) => ({ img, key: i }));
 
