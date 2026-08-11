@@ -37,11 +37,13 @@
   image-slot{--is-bg:#f6f3f1}
   #aure-carousel{scrollbar-width:none;-ms-overflow-style:none}
   #aure-carousel::-webkit-scrollbar{display:none}
-  #aure-rail{scrollbar-width:none;-ms-overflow-style:none}
+  #aure-rail{scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:auto}
   #aure-rail::-webkit-scrollbar{display:none}
-  #aure-rail-slider{-webkit-appearance:none;appearance:none;height:2px;background:#e7e0dc;border-radius:2px;outline:none;cursor:pointer}
-  #aure-rail-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:5px;border-radius:3px;background:#b49ba4;cursor:grab}
-  #aure-rail-slider::-moz-range-thumb{width:30px;height:5px;border:none;border-radius:3px;background:#b49ba4;cursor:grab}
+  #aure-rail-slider{-webkit-appearance:none;appearance:none;width:min(220px,48vw);height:18px;background:transparent;outline:none;cursor:pointer;touch-action:none}
+  #aure-rail-slider::-webkit-slider-runnable-track{height:3px;background:#e7e0dc;border-radius:3px}
+  #aure-rail-slider::-moz-range-track{height:3px;background:#e7e0dc;border-radius:3px}
+  #aure-rail-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:12px;border-radius:6px;background:#b49ba4;cursor:grab;margin-top:-4.5px}
+  #aure-rail-slider::-moz-range-thumb{width:34px;height:12px;border:none;border-radius:6px;background:#b49ba4;cursor:grab}
   @media (max-width:900px){
     .aure-founders{grid-template-columns:1fr !important;gap:34px !important}
     .aure-contact{grid-template-columns:1fr !important}
@@ -519,10 +521,14 @@ class Component extends DCLogic {
     const slider = document.getElementById('aure-rail-slider');
     if (!rail || !slider) return;
     const maxScroll = () => Math.max(1, rail.scrollWidth - rail.clientWidth);
-    this._railScroll = () => { slider.value = String(Math.round(rail.scrollLeft / maxScroll() * 1000)); };
+    this._railScroll = () => { if (this._sliderDrag) return; slider.value = String(Math.round(rail.scrollLeft / maxScroll() * 1000)); };
     this._sliderInput = () => { rail.scrollLeft = (Number(slider.value) / 1000) * maxScroll(); };
+    this._sliderDown = () => { this._sliderDrag = true; };
+    this._sliderUp = () => { this._sliderDrag = false; };
     rail.addEventListener('scroll', this._railScroll, { passive: true });
     slider.addEventListener('input', this._sliderInput);
+    slider.addEventListener('pointerdown', this._sliderDown);
+    window.addEventListener('pointerup', this._sliderUp);
     this._railEl = rail; this._sliderEl = slider;
     requestAnimationFrame(this._railScroll);
   }
@@ -577,6 +583,8 @@ class Component extends DCLogic {
     if (this._railEl) {
       this._railEl.removeEventListener('scroll', this._railScroll);
       this._sliderEl.removeEventListener('input', this._sliderInput);
+      this._sliderEl.removeEventListener('pointerdown', this._sliderDown);
+      window.removeEventListener('pointerup', this._sliderUp);
     }
   }
 
@@ -651,7 +659,7 @@ class Component extends DCLogic {
 
     const hov = this.state.hovered;
     const DZOOM = { v2: 1.12, v3: 1.22, v4: 1.08, v5: 1.24 };
-    const DRAISE = { v3: -12, v5: -7 };
+    const DRAISE = { v3: -5, v5: -5 };
     const CARD_TX = {};
     ['v1', 'v2', 'v3', 'v4', 'v5', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6'].forEach((id) => {
       const z = this.props['zoom_' + id] ?? (DZOOM[id] ?? 1);

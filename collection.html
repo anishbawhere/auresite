@@ -30,7 +30,9 @@
     .aure-shop-sec{padding:96px 16px 70px !important}
     .aure-toolbar{flex-wrap:wrap !important;gap:14px !important}
     .aure-cols-ctrl{display:none !important}
-    header > div:first-child{display:none !important}
+    header > div:first-child{display:flex !important;align-items:center}
+    header > div:first-child > a{display:none !important}
+    .aure-logo{transform:translateY(-3px) scale(.66) !important;transform-origin:left center}
     header > div:last-child{margin-left:auto !important;gap:18px !important}
     .aure-drop{width:calc(100vw - 24px) !important;max-width:452px !important}
     .aure-fab{display:flex !important}
@@ -328,7 +330,7 @@ class Component extends DCLogic {
     else if (sort === 'plow') list = [...list].sort((a, b) => num(a) - num(b));
     else if (sort === 'phigh') list = [...list].sort((a, b) => num(b) - num(a));
 
-    const CARD_TX = { v2: 'scale(1.12)', v3: 'scale(1.22) translateY(-12%)', v5: 'scale(1.16) translateY(-9%)' };
+    const CARD_TX = { v2: 'scale(1.12)', v3: 'scale(1.22) translateY(-5%)', v5: 'scale(1.16) translateY(-5%)' };
     const items = list.map((d) => ({
       name: d.name, cat: d.cat, price: d.price, img1: d.img1, img2: d.img2, isNew: d.isNew,
       imgTx: CARD_TX[d.id] || 'none',
