@@ -243,10 +243,7 @@
           </div>
         </div>
 
-        <div style="display:flex;justify-content:flex-end;margin-top:24px;margin-bottom:12px">
-          <span onClick="{{ zoomSize }}" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#8a807b;font-weight:300;cursor:pointer" style-hover="{ color:'#a28b4c' }"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="8" width="20" height="8" rx="2"></rect><line x1="7" y1="8" x2="7" y2="11.5"></line><line x1="12" y1="8" x2="12" y2="11.5"></line><line x1="17" y1="8" x2="17" y2="11.5"></line></svg>Size Chart</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:20px">
+        <div style="display:flex;align-items:center;gap:20px;margin-top:24px">
           <span style="width:56px;flex:none;font-size:14px;font-weight:400;color:{{ sizeLabelColor }};transition:color .3s ease">Size</span>
           <div style="display:flex;flex-wrap:wrap;gap:10px">
             <sc-for list="{{ sizes }}" as="s" hint-placeholder-count="6">
