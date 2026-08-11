@@ -413,7 +413,7 @@ class Component extends DCLogic {
     const inWish = this.state.wishlist.includes(d.slug);
     const rev = this.state.rev;
     const pill = (sel) => ({ bg: sel ? '#2a2422' : '#fff', color: sel ? '#fff' : '#2a2422', border: sel ? '#2a2422' : '#e6e0dd' });
-    const sizes = ['S', 'M', 'L'].map((sz) => ({ label: sz, ...pill(this.state.size === sz), on: () => this.setState({ size: sz, err: null }) }));
+    const sizes = ['S', 'M', 'L', 'Custom'].map((sz) => ({ label: sz, ...pill(this.state.size === sz), on: () => this.setState({ size: sz, err: null }) }));
     const ITEMS = [{ key: 'shirt', label: 'Shirt & Dupatta', price: 55000, silkExtra: 10000 }, { key: 'culottes', label: 'Culottes', price: 10000, silkExtra: 5000 }, { key: 'shalwar', label: 'Shalwar', price: 10000, silkExtra: 5000 }];
     const FABRICS = [{ key: 'silk', label: 'Pure Raw Silk' }, { key: 'net', label: 'Tissue Net' }];
     const items = ITEMS.map((it) => ({ label: it.label, ...pill(this.state.item === it.key), on: () => this.setState({ item: it.key }) }));

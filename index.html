@@ -370,7 +370,7 @@
       <div style="display:flex;gap:44px;width:max-content;padding:0 44px">
         <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="8">
           <div class="aure-gal-item" style="width:calc((100vw - 320px)/3.6);aspect-ratio:3/4;flex:none;position:relative;background:#eee6e3;overflow:hidden">
-            <img src="{{ g.img }}" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" draggable="false">
+            <img src="{{ g.img }}" alt="" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block" draggable="false">
           </div>
         </sc-for>
       </div>
@@ -718,9 +718,9 @@ class Component extends DCLogic {
     }).map((d) => ({ name: d.name, tag: d.tag, img1: d.img1, go: () => { window.location.href = this.FILE[d.id]; } }));
 
     const bridals = [
-      'assets/gallery/bridal-1c.webp',
+      'assets/gallery/bridal-1.webp',
       'assets/gallery/bridal-1b.webp',
-      'assets/gallery/bridal-2c.webp',
+      'assets/gallery/bridal-2.webp',
       'assets/gallery/bridal-3.webp',
       'assets/gallery/bridal-4.webp',
       'assets/gallery/bridal-lake.webp',
@@ -755,7 +755,7 @@ class Component extends DCLogic {
       border: t.real && t.idx === gi ? '#a28b4c' : '#efeae8',
     }));
     const pill = (sel) => ({ bg: sel ? '#2a2422' : '#fff', color: sel ? '#fff' : '#2a2422', border: sel ? '#2a2422' : '#e6e0dd' });
-    const sizes = ['XS', 'S', 'M', 'ML', 'L', 'XL'].map((sz) => ({ label: sz, ...pill(this.state.size === sz), on: () => this.setState({ size: sz }) }));
+    const sizes = ['XS', 'S', 'M', 'ML', 'L', 'XL', 'Custom'].map((sz) => ({ label: sz, ...pill(this.state.size === sz), on: () => this.setState({ size: sz }) }));
     const items = ['Shirt', 'Culottes'].map((it) => ({ label: it, ...pill(this.state.item === it.toLowerCase()), on: () => this.setState({ item: it.toLowerCase() }) }));
     const detail = {
       name: ad.name, category: ad.tag,
