@@ -46,6 +46,7 @@
         m += (i + 1) + '. ' + x.name + '\n';
         m += '   \u2022 Item: ' + (x.item || '\u2014') + '\n';
         m += '   \u2022 Size: ' + (x.size || 'Not selected') + '\n';
+        if (x.meas) m += '   \u2022 Measurements (inches): ' + x.meas + '\n';
         m += '   \u2022 Fabric: ' + (x.fabric || '\u2014') + '\n';
         m += '   \u2022 Quantity: ' + (x.qty || 1) + '\n';
         if (x.price) m += '   \u2022 Price: ' + x.price + '\n';

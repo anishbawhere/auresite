@@ -21,11 +21,11 @@
 <script src="./image-slot.js"></script>
 <script src="./aure-cart.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Poppins:wght@200;300;400&display=swap');
-  
-  
-  
-  
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-ExtraLight.ttf') format('truetype');font-weight:200;font-style:normal;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/CormorantGaramond-VariableFont_wght.ttf') format('truetype');font-weight:300 700;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/CormorantGaramond-Italic-VariableFont_wght.ttf') format('truetype');font-weight:300 700;font-style:italic;font-display:swap}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:#ffffff;color:#2a2422;font-family:'Poppins',system-ui,sans-serif;font-weight:200;-webkit-font-smoothing:antialiased;letter-spacing:.01em}
@@ -288,7 +288,7 @@
             <sc-if value="{{ d.real }}" hint-placeholder-val="{{ true }}">
               <img src="{{ d.img1 }}" alt="{{ d.name }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;transform:{{ d.imgTx }};transform-origin:center">
               <img src="{{ d.img2 }}" alt="{{ d.name }} — detail" loading="lazy" decoding="async" fetchpriority="low" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;opacity:{{ d.hoverOp }};transition:opacity .3s ease;will-change:opacity">
-            <sc-if value="{{ d.isNew }}" hint-placeholder-val="{{ false }}">
+              <sc-if value="{{ d.isNew }}" hint-placeholder-val="{{ false }}">
                 <div style="position:absolute;top:14px;left:14px;background:#2a2422;color:#fff;padding:5px 12px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:400">New</div>
               </sc-if>
               <button onClick="{{ d.toggle }}" aria-label="Save to wishlist" style="position:absolute;top:12px;right:12px;z-index:5;width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,.86);backdrop-filter:blur(6px);display:grid;place-items:center;box-shadow:0 4px 14px -6px rgba(42,36,34,.4);transition:transform .3s ease" style-hover="{ transform:'scale(1.08)' }">
@@ -333,8 +333,8 @@
         <div data-reveal="" style="text-align:center">
           
           
-          <h3 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4vw,50px);margin:0 0 0;color:#2a2422">Najia &amp; Izza</h3><p style="font-weight:200;font-size:15px;line-height:1.85;color:#6b6560;margin:18px auto 0;max-width:46ch">What started as a small idea between us slowly grew into something much bigger than we imagined. It became a way of celebrating the craftsmanship and heritage that have always made Pakistan special.&nbsp;</p>
-          <p style="font-weight:200;font-size:15px;line-height:1.85;color:#6b6560;margin:14px auto 0;max-width:46ch"><span style="letter-spacing: 0.2px;">For Najia, this journey is shaped by over fifteen years of designing garments with patience and purpose.&nbsp;</span>For Izza, whose background is in interior design, it comes from an eye for balance, texture, and thoughtful detail. Together, our different paths found a shared vision: creating pieces that honour our heritage with quiet confidence. <em>"Defined by detail, sewn in elegance"</em> is more than a motto to us—it is the standard behind everything we create.</p>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(34px,4vw,50px);margin:0 0 0;color:#2a2422">Najia &amp; Izza</h3><p style="font-weight:200;font-size:15px;line-height:1.85;color:#6b6560;margin:18px auto 0;max-width:46ch">What began as a small idea between us grew into a shared love for Pakistan's craftsmanship and heritage.</p>
+          <p style="font-weight:200;font-size:15px;line-height:1.85;color:#6b6560;margin:14px auto 0;max-width:46ch"><span style="letter-spacing: 0.2px;">For Najia, it draws from over fifteen years of designing with patience and purpose.&nbsp;</span>For Izza, it comes from an eye for balance, texture, and detail. Together, we create pieces that honour our heritage with quiet confidence. <strong style="font-weight:500;color:#2a2422">"Defined by detail, sewn in elegance"</strong> is more than a motto—it's the standard behind everything we create.</p>
           <div style="margin-top:22px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#a28b4c">— N. Irfan, I. Shehryar</div>
         </div>
         <div data-reveal="" style="position:relative;width:100%;aspect-ratio:1080/1350;max-height:64vh;background:#e7e0dd">

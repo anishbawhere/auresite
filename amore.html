@@ -20,11 +20,11 @@
 <link rel="preload" as="script" crossorigin="" href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js">
 <script src="./aure-cart.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Poppins:wght@200;300;400&display=swap');
-  
-  
-  
-  
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-ExtraLight.ttf') format('truetype');font-weight:200;font-style:normal;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/CormorantGaramond-VariableFont_wght.ttf') format('truetype');font-weight:300 700;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/CormorantGaramond-Italic-VariableFont_wght.ttf') format('truetype');font-weight:300 700;font-style:italic;font-display:swap}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:#ffffff;color:#2a2422;font-family:'Poppins',system-ui,sans-serif;font-weight:200;-webkit-font-smoothing:antialiased;letter-spacing:.01em}
@@ -47,8 +47,11 @@
     .aure-fab{display:flex !important}
     body{padding-bottom:72px !important}
   }
-  @media (max-width:560px){
-    .aure-gallery{flex-direction:column !important}
+  @media (max-width:700px){
+    .aure-gallery > div:nth-child(2){display:none !important}
+    .aure-thumbs{gap:6px !important;margin-top:10px !important}
+    .aure-lb{padding:12px !important}
+    .aure-lb video,.aure-lb img{max-width:100% !important;max-height:80vh !important}
   }
 </style>
 </helmet>
@@ -195,7 +198,7 @@
           </button>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px">
+        <div class="aure-thumbs" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px">
           <button onClick="{{ sel0 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb0 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
             <img loading="lazy" decoding="async" src="assets/dresses/amore-1.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
           </button>
@@ -210,6 +213,14 @@
           </button>
           <button onClick="{{ sel4 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb4 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
             <img loading="lazy" decoding="async" src="assets/dresses/amore-5.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
+          </button>
+          <button onClick="{{ sel5 }}" aria-label="Play video" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb5 }};padding:0;cursor:pointer;background:#2a2422;overflow:hidden">
+            <video src="assets/videos/amore.mp4#t=0.1" muted="{{ true }}" playsInline="{{ true }}" preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%"></video>
+            <span style="position:absolute;inset:0;display:grid;place-items:center;background:rgba(42,36,34,.22)">
+              <span style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 4px 12px -4px rgba(42,36,34,.5)">
+                <span style="width:0;height:0;border-left:9px solid #2a2422;border-top:5.5px solid transparent;border-bottom:5.5px solid transparent;margin-left:2px"></span>
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -251,6 +262,13 @@
             </sc-for>
           </div>
         </div>
+
+        <sc-if value="{{ customSelected }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
+            <button onClick="{{ openSizeModal }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 30px;border:1px solid #2a2422;background:#fff;color:#2a2422;font-family:'Poppins';font-weight:300;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .25s ease" style-hover="{ background:'#2a2422', color:'#ffffff' }">Enter Size Manually</button>
+            <sc-if value="{{ hasMeas }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:#a28b4c;font-weight:300;letter-spacing:.04em">✓ Measurements added</span></sc-if>
+          </div>
+        </sc-if>
 
         <div style="display:flex;align-items:center;gap:20px;margin-top:24px">
           <span style="width:56px;flex:none;font-size:14px;font-weight:400;color:#2a2422">Fabric</span>
@@ -322,6 +340,38 @@
     </div>
   </section>
 
+  <!-- ============ CUSTOM SIZE MODAL ============ -->
+  <div style="position:fixed;inset:0;z-index:90;pointer-events:{{ sizeModalPE }}">
+    <div onClick="{{ closeSizeModal }}" style="position:absolute;inset:0;background:rgba(42,36,34,.5);opacity:{{ sizeModalOverlay }};transition:opacity .35s ease"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale({{ sizeModalScale }});width:min(600px,92vw);max-height:90vh;overflow-y:auto;background:#f4f1ef;border-radius:8px;box-shadow:0 40px 90px -30px rgba(42,36,34,.6);opacity:{{ sizeModalOverlay }};transition:opacity .35s ease,transform .35s ease;padding:40px 42px 42px">
+      <button onClick="{{ closeSizeModal }}" aria-label="Close" style="position:absolute;top:22px;right:24px;background:none;border:none;font-size:26px;line-height:1;color:#8a807b;cursor:pointer">×</button>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:36px;color:#2a2422;margin:0">Custom Size</h2>
+      <p style="font-size:14px;color:#8a807b;font-weight:300;margin:6px 0 28px">Please enter all measurements in inches</p>
+      <div style="display:flex;align-items:center;justify-content:center;margin-bottom:32px">
+        <button onClick="{{ goFront }}" style="width:92px;height:92px;flex:none;border-radius:50%;border:2px solid #2a2422;background:{{ frontBg }};color:{{ frontColor }};font-family:'Poppins';font-size:14px;font-weight:300;cursor:pointer;transition:all .3s ease">Front</button>
+        <div style="width:90px;height:2px;background:#2a2422"></div>
+        <button onClick="{{ goToBack }}" style="width:92px;height:92px;flex:none;border-radius:50%;border:2px solid #2a2422;background:{{ backBg }};color:{{ backColor }};font-family:'Poppins';font-size:14px;font-weight:300;cursor:pointer;transition:all .3s ease">Back</button>
+      </div>
+      <sc-if value="{{ isFront }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+          <sc-for list="{{ frontFields }}" as="f" hint-placeholder-count="10">
+            <input type="text" inputmode="decimal" placeholder="{{ f.label }}" value="{{ f.value }}" onChange="{{ f.on }}" style="width:100%;padding:15px 18px;border:1px solid #e2dcd8;background:#fff;font-family:'Poppins';font-weight:300;font-size:14px;color:#2a2422;border-radius:3px;outline:none;box-sizing:border-box">
+          </sc-for>
+        </div>
+        <button onClick="{{ goToBack }}" style="width:100%;margin-top:26px;height:54px;border:none;background:#2a2422;color:#fff;font-family:'Poppins';font-weight:300;font-size:13px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:background .3s ease" style-hover="{ background:'#000000' }">Next</button>
+      </sc-if>
+      <sc-if value="{{ isBack }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+          <sc-for list="{{ backFields }}" as="f" hint-placeholder-count="5">
+            <input type="text" inputmode="decimal" placeholder="{{ f.label }}" value="{{ f.value }}" onChange="{{ f.on }}" style="width:100%;padding:15px 18px;border:1px solid #e2dcd8;background:#fff;font-family:'Poppins';font-weight:300;font-size:14px;color:#2a2422;border-radius:3px;outline:none;box-sizing:border-box">
+          </sc-for>
+        </div>
+        <button onClick="{{ addCustom }}" style="width:100%;margin-top:26px;height:54px;border:none;background:#2a2422;color:#fff;font-family:'Poppins';font-weight:300;font-size:13px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:background .3s ease" style-hover="{ background:'#000000' }">Add to Enquiry</button>
+        <button onClick="{{ goFront }}" style="width:100%;margin-top:10px;height:48px;border:1px solid #cfc6c1;background:none;color:#6b6560;font-family:'Poppins';font-weight:300;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-radius:3px">Back</button>
+      </sc-if>
+    </div>
+  </div>
+
   <!-- ============ FOOTER ============ -->
   <footer style="background:#2a2422;color:#e9e2df;padding:70px 44px 50px;text-align:center">
     <a href="./index.html"><img src="assets/logo-white.png" alt="Auré" style="height:34px;margin-bottom:24px;opacity:.95"></a>
@@ -354,7 +404,7 @@
   </nav>
 
   <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ bgClose }}" style="position:fixed;inset:0;z-index:130;background:rgba(24,20,19,.94);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:40px;cursor:zoom-out">
+    <div class="aure-lb" onClick="{{ bgClose }}" style="position:fixed;inset:0;z-index:130;background:rgba(24,20,19,.94);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:40px;cursor:zoom-out">
       {{ lbImg }}
       <button onClick="{{ closeLb }}" aria-label="Close" style="position:fixed;top:20px;right:22px;width:46px;height:46px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(4px)">✕</button>
     </div>
@@ -364,9 +414,9 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { wishlist: [], rev: false, menuOpen: false, shopOpen: false, size: 'Custom', item: 'lehnga', fabric: 'silk', qty: 1, descOpen: true, discOpen: false, deep: false, cart: [], bagOpen: false, err: null, lb: null, active: 0, lbScale: 1, lbPan: { x: 0, y: 0 } };
+  state = { wishlist: [], rev: false, menuOpen: false, shopOpen: false, sizeModal: false, sizeStep: 'front', meas: {}, size: 'Custom', item: 'lehnga', fabric: 'silk', qty: 1, descOpen: true, discOpen: false, deep: false, cart: [], bagOpen: false, err: null, lb: null, active: 0, lbScale: 1, lbPan: { x: 0, y: 0 } };
 
-  DRESS = { name: 'Amore', img1: 'assets/dresses/amore-1.webp', img2: 'assets/dresses/amore-2.webp', slug: 'v4' };
+  DRESS = { name: 'Amore', img1: 'assets/dresses/amore-1.webp', img2: 'assets/dresses/amore-2.webp', slug: 'v4' , video: 'assets/videos/amore.mp4'};
 
   componentDidMount() {
     try {
@@ -421,13 +471,25 @@ class Component extends DCLogic {
     const d = this.DRESS;
     const base = d.img1.replace('-1.webp','');
     const galN = d.n || 5;
-    const gallery = [d.img1, d.img2, base+'-3.webp', base+'-4.webp', base+'-5.webp'].slice(0, galN);
-    const galAct = (((this.state.active||0)%galN)+galN)%galN;
-    const galNext = (galAct+1)%galN;
-    const mkGal = (src, click) => React.createElement('img', { loading:'lazy', decoding:'async', src, onClick:click, style:{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 20%', cursor:'zoom-in' } });
+    const imgs = [d.img1, d.img2, base+'-3.webp', base+'-4.webp', base+'-5.webp'].slice(0, galN);
+    const gallery = d.video ? imgs.concat([d.video]) : imgs;
+    const mediaN = gallery.length;
+    const isVid = (s) => typeof s === 'string' && s.indexOf('.mp4') > -1;
+    const galAct = (((this.state.active||0)%mediaN)+mediaN)%mediaN;
+    const galNext = (galAct+1)%mediaN;
+    const galStyle = { position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 20%', cursor:'zoom-in' };
+    const mkGal = (src, click) => isVid(src)
+      ? React.createElement('video', { src, autoPlay:true, muted:true, loop:true, playsInline:true, onClick:click, style:galStyle })
+      : React.createElement('img', { loading:'lazy', decoding:'async', src, onClick:click, style:galStyle });
     const inWish = this.state.wishlist.includes(d.slug);
     const rev = this.state.rev;
     const pill = (sel) => ({ bg: sel ? '#2a2422' : '#fff', color: sel ? '#fff' : '#2a2422', border: sel ? '#2a2422' : '#e6e0dd' });
+    const FRONT_FIELDS = [['neckDepth','Neck Depth'],['sleeveLength','Sleeve Length'],['shirtLength','Shirt Length'],['bust','Bust Circumference'],['waist','Waist'],['hip','Hip Circumference'],['thigh','Thigh Circumference'],['knee','Knee Circumference'],['calf','Calf Circumference'],['ankle','Ankle']];
+    const BACK_FIELDS = [['backNeckDepth','Back Neck Depth'],['crossShoulder','Cross Shoulder'],['trouserLength','Trouser Length'],['armhole','Armhole'],['bicep','Bicep']];
+    const meas = this.state.meas || {};
+    const mkMeasField = (p) => ({ key: p[0], label: p[1], value: meas[p[0]] || '', on: (e) => { const v = e.target.value; this.setState((s) => ({ meas: Object.assign({}, s.meas, { [p[0]]: v }) })); } });
+    const customSelected = this.state.size === 'Custom' || this.state.size === 'Customized';
+    const measStr = [].concat(FRONT_FIELDS, BACK_FIELDS).filter((p) => meas[p[0]] && String(meas[p[0]]).trim() !== '').map((p) => p[1] + ': ' + String(meas[p[0]]).trim()).join(', ');
     const sizes = ['Custom'].map((sz) => ({ label: sz.toUpperCase(), ...pill(this.state.size === sz), on: () => this.setState({ size: sz, err: null }) }));
     const ITEMS = [{ key: 'lehnga', label: 'Lehnga & Blouse', price: 65000, silkExtra: 10000 }, { key: 'dupatta', label: 'Dupatta', price: 10000, silkExtra: 5000 }];
     const FABRICS = [{ key: 'silk', label: this.state.item === 'dupatta' ? 'Net Organza' : 'Tissue Silk' }];
@@ -450,6 +512,11 @@ class Component extends DCLogic {
 
     return {
       lbOpen: !!this.state.lb, lbImg: this.state.lb ? (() => {
+        if (isVid(this.state.lb)) return React.createElement('video', {
+          src: this.state.lb, controls: true, autoPlay: true, loop: true, playsInline: true, muted: true,
+          onClick: (e) => e.stopPropagation(),
+          style: { maxWidth: 'min(94vw,1150px)', maxHeight: '92vh', objectFit: 'contain', background: '#000', boxShadow: '0 40px 90px -25px rgba(0,0,0,.75)' }
+        });
         const sc = this.state.lbScale || 1;
         const p = this.state.lbPan || { x: 0, y: 0 };
         const zoomed = sc > 1;
@@ -482,9 +549,10 @@ class Component extends DCLogic {
       leftImg: mkGal(gallery[galAct], () => this.setState({ lb: gallery[galAct] })),
       rightImg: mkGal(gallery[galNext], () => this.setState({ lb: gallery[galNext] })),
       zoomActive: () => this.setState({ lb: gallery[galAct] }),
-      galleryPrev: () => this.setState((s) => ({ active: ((((s.active||0)-1)%galN)+galN)%galN })),
-      galleryNext: () => this.setState((s) => ({ active: ((s.active||0)+1)%galN })),
+      galleryPrev: () => this.setState((s) => ({ active: ((((s.active||0)-1)%mediaN)+mediaN)%mediaN })),
+      galleryNext: () => this.setState((s) => ({ active: ((s.active||0)+1)%mediaN })),
       sel0:()=>this.setState({active:0}), sel1:()=>this.setState({active:1}), sel2:()=>this.setState({active:2}), sel3:()=>this.setState({active:3}), sel4:()=>this.setState({active:4}),
+      sel5:()=>this.setState({active:5}), tb5: galAct===5?'#a28b4c':'#efeae8',
       tb0: galAct===0?'#a28b4c':'#efeae8', tb1: galAct===1?'#a28b4c':'#efeae8', tb2: galAct===2?'#a28b4c':'#efeae8', tb3: galAct===3?'#a28b4c':'#efeae8', tb4: galAct===4?'#a28b4c':'#efeae8',
       zoomSize: () => this.setState({ lb: 'assets/size-guide.webp' }),
       dir: rev ? 'row-reverse' : 'row',
@@ -515,9 +583,9 @@ class Component extends DCLogic {
       clearCart: () => window.AureCart.clear(),
       addToEnquiry: () => {
         if (!this.state.size) { this.setState({ err: 'Please select a size before adding to your enquiry list.' }); return; }
-        const size = this.state.size === 'Custom' ? 'Custom (made to measure)' : this.state.size;
-        const key = [d.slug, curItem.key, curFabric.key, this.state.size].join('|');
-        window.AureCart.add({ key, slug: d.slug, name: d.name, item: curItem.label, fabric: curFabric.label, size, qty: this.state.qty, price, thumb: d.img1 });
+        const size = customSelected ? (this.state.size === 'Customized' ? 'Customized (made to measure)' : 'Custom (made to measure)') : this.state.size;
+        const key = [d.slug, curItem.key, curFabric.key, this.state.size, customSelected ? measStr : ''].join('|');
+        window.AureCart.add({ key, slug: d.slug, name: d.name, item: curItem.label, fabric: curFabric.label, size, meas: customSelected ? measStr : '', qty: this.state.qty, price, thumb: d.img1 });
         this.setState({ bagOpen: true, err: null });
       },
       incQty: () => this.setState((s) => ({ qty: s.qty + 1 })),
@@ -534,14 +602,38 @@ class Component extends DCLogic {
       shopRot: this.state.shopOpen ? '180deg' : '0deg',
       shopMax: this.state.shopOpen ? '160px' : '0px',
       shopOpac: this.state.shopOpen ? 1 : 0,
+      customSelected,
+      hasMeas: measStr !== '',
+      frontFields: FRONT_FIELDS.map(mkMeasField),
+      backFields: BACK_FIELDS.map(mkMeasField),
+      openSizeModal: () => this.setState({ sizeModal: true, sizeStep: 'front' }),
+      closeSizeModal: () => this.setState({ sizeModal: false }),
+      goFront: () => this.setState({ sizeStep: 'front' }),
+      goToBack: () => this.setState({ sizeStep: 'back' }),
+      isFront: this.state.sizeStep !== 'back',
+      isBack: this.state.sizeStep === 'back',
+      frontBg: this.state.sizeStep !== 'back' ? '#2a2422' : '#fff',
+      frontColor: this.state.sizeStep !== 'back' ? '#fff' : '#2a2422',
+      backBg: this.state.sizeStep === 'back' ? '#2a2422' : '#fff',
+      backColor: this.state.sizeStep === 'back' ? '#fff' : '#2a2422',
+      sizeModalPE: this.state.sizeModal ? 'auto' : 'none',
+      sizeModalOverlay: this.state.sizeModal ? 1 : 0,
+      sizeModalScale: this.state.sizeModal ? '1' : '0.96',
+      addCustom: () => {
+        const sz = this.state.size === 'Customized' ? 'Customized (made to measure)' : 'Custom (made to measure)';
+        const key = [d.slug, curItem.key, curFabric.key, this.state.size, measStr].join('|');
+        window.AureCart.add({ key, slug: d.slug, name: d.name, item: curItem.label, fabric: curFabric.label, size: sz, meas: measStr, qty: this.state.qty, price, thumb: d.img1 });
+        this.setState({ sizeModal: false, bagOpen: true, err: null });
+      },
       enquireWhatsApp: () => {
-        const size = this.state.size === 'Custom' ? 'Custom (made to measure — I\'ll share my measurements)' : (this.state.size || 'not selected yet');
+        const size = customSelected ? ((this.state.size === 'Customized' ? 'Customized' : 'Custom') + ' (made to measure)') : (this.state.size || 'not selected yet');
         const msg =
           `Hello Auré,\n\n` +
           `I'd love to enquire about a piece from the Roma collection:\n\n` +
           `• Piece: ${d.name}\n` +
           `• Item: ${curItem.label}\n` +
           `• Size: ${size}\n` +
+          (customSelected && measStr ? `• Measurements (inches): ${measStr}\n` : '') +
           `• Fabric: ${curFabric.label}\n` +
           `• Price: ${price}\n` +
           `• Quantity: ${this.state.qty}\n\n` +

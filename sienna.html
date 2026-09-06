@@ -20,11 +20,11 @@
 <link rel="preload" as="script" crossorigin="" href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js">
 <script src="./aure-cart.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Poppins:wght@200;300;400&display=swap');
-  
-  
-  
-  
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-ExtraLight.ttf') format('truetype');font-weight:200;font-style:normal;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('assets/Poppins-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/CormorantGaramond-VariableFont_wght.ttf') format('truetype');font-weight:300 700;font-style:normal;font-display:swap}
+  @font-face{font-family:'Cormorant Garamond';src:url('assets/CormorantGaramond-Italic-VariableFont_wght.ttf') format('truetype');font-weight:300 700;font-style:italic;font-display:swap}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:#ffffff;color:#2a2422;font-family:'Poppins',system-ui,sans-serif;font-weight:200;-webkit-font-smoothing:antialiased;letter-spacing:.01em}
@@ -47,8 +47,11 @@
     .aure-fab{display:flex !important}
     body{padding-bottom:72px !important}
   }
-  @media (max-width:560px){
-    .aure-gallery{flex-direction:column !important}
+  @media (max-width:700px){
+    .aure-gallery > div:nth-child(2){display:none !important}
+    .aure-thumbs{gap:6px !important;margin-top:10px !important}
+    .aure-lb{padding:12px !important}
+    .aure-lb video,.aure-lb img{max-width:100% !important;max-height:80vh !important}
   }
 </style>
 </helmet>
@@ -195,7 +198,7 @@
           </button>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px">
+        <div class="aure-thumbs" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px">
           <button onClick="{{ sel0 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb0 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
             <img loading="lazy" decoding="async" src="assets/dresses/sienna-1.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
           </button>
@@ -210,6 +213,14 @@
           </button>
           <button onClick="{{ sel4 }}" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb4 }};padding:0;cursor:pointer;background:#f6f3f1;overflow:hidden">
             <img loading="lazy" decoding="async" src="assets/dresses/sienna-5.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%">
+          </button>
+          <button onClick="{{ sel5 }}" aria-label="Play video" style="position:relative;aspect-ratio:3/4;border:1px solid {{ tb5 }};padding:0;cursor:pointer;background:#2a2422;overflow:hidden">
+            <video src="assets/videos/sienna.mp4#t=0.1" muted="{{ true }}" playsInline="{{ true }}" preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%"></video>
+            <span style="position:absolute;inset:0;display:grid;place-items:center;background:rgba(42,36,34,.22)">
+              <span style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 4px 12px -4px rgba(42,36,34,.5)">
+                <span style="width:0;height:0;border-left:9px solid #2a2422;border-top:5.5px solid transparent;border-bottom:5.5px solid transparent;margin-left:2px"></span>
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -289,12 +300,12 @@
           </button>
           <sc-if value="{{ descOpen }}" hint-placeholder-val="{{ true }}">
             <div style="padding:0 24px 26px">
-              <p style="font-weight:200;font-size:14px;line-height:2;color:#6b6560;margin:0">SIENNA is a statement in molten metallics — tissue silk caught with maroon and gold zardozi, worn with an heirloom-worthy embroidered dupatta for occasions that call for grandeur.</p>
+              <p style="font-weight:200;font-size:14px;line-height:2;color:#6b6560;margin:0">SIENNA is a statement in molten metallics — pure jamawar caught with maroon and gold zardozi, worn with an heirloom-worthy embroidered dupatta for occasions that call for grandeur.</p>
               <div style="height:1px;background:#f1eeef;margin:22px 0"></div>
               <div style="display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:14px;line-height:1.6">
                 <span style="font-weight:400;color:#2a2422">Size</span><span style="font-weight:200;color:#6b6560">Custom</span>
                 <span style="font-weight:400;color:#2a2422">Cut</span><span style="font-weight:200;color:#6b6560">Relaxed Fit</span>
-                <span style="font-weight:400;color:#2a2422">Fabric</span><span style="font-weight:200;color:#6b6560">Tissue Silk</span>
+                <span style="font-weight:400;color:#2a2422">Fabric</span><span style="font-weight:200;color:#6b6560">Pure Jamawar</span>
                 <span style="font-weight:400;color:#2a2422">Dupatta</span><span style="font-weight:200;color:#6b6560">Net Organza</span>
               </div>
             </div>
@@ -354,7 +365,7 @@
   </nav>
 
   <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ bgClose }}" style="position:fixed;inset:0;z-index:130;background:rgba(24,20,19,.94);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:40px;cursor:zoom-out">
+    <div class="aure-lb" onClick="{{ bgClose }}" style="position:fixed;inset:0;z-index:130;background:rgba(24,20,19,.94);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:40px;cursor:zoom-out">
       {{ lbImg }}
       <button onClick="{{ closeLb }}" aria-label="Close" style="position:fixed;top:20px;right:22px;width:46px;height:46px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(4px)">✕</button>
     </div>
@@ -366,7 +377,7 @@
 class Component extends DCLogic {
   state = { wishlist: [], rev: false, menuOpen: false, shopOpen: false, size: 'Custom', item: 'lehnga', fabric: 'silk', qty: 1, descOpen: true, discOpen: false, deep: false, cart: [], bagOpen: false, err: null, lb: null, active: 0, lbScale: 1, lbPan: { x: 0, y: 0 } };
 
-  DRESS = { name: 'Sienna', img1: 'assets/dresses/sienna-1.webp', img2: 'assets/dresses/sienna-2.webp', slug: 'v1' };
+  DRESS = { name: 'Sienna', img1: 'assets/dresses/sienna-1.webp', img2: 'assets/dresses/sienna-2.webp', slug: 'v1' , video: 'assets/videos/sienna.mp4'};
 
   componentDidMount() {
     try {
@@ -421,16 +432,22 @@ class Component extends DCLogic {
     const d = this.DRESS;
     const base = d.img1.replace('-1.webp','');
     const galN = d.n || 5;
-    const gallery = [d.img1, d.img2, base+'-3.webp', base+'-4.webp', base+'-5.webp'].slice(0, galN);
-    const galAct = (((this.state.active||0)%galN)+galN)%galN;
-    const galNext = (galAct+1)%galN;
-    const mkGal = (src, click) => React.createElement('img', { loading:'lazy', decoding:'async', src, onClick:click, style:{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 20%', cursor:'zoom-in' } });
+    const imgs = [d.img1, d.img2, base+'-3.webp', base+'-4.webp', base+'-5.webp'].slice(0, galN);
+    const gallery = d.video ? imgs.concat([d.video]) : imgs;
+    const mediaN = gallery.length;
+    const isVid = (s) => typeof s === 'string' && s.indexOf('.mp4') > -1;
+    const galAct = (((this.state.active||0)%mediaN)+mediaN)%mediaN;
+    const galNext = (galAct+1)%mediaN;
+    const galStyle = { position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center 20%', cursor:'zoom-in' };
+    const mkGal = (src, click) => isVid(src)
+      ? React.createElement('video', { src, autoPlay:true, muted:true, loop:true, playsInline:true, onClick:click, style:galStyle })
+      : React.createElement('img', { loading:'lazy', decoding:'async', src, onClick:click, style:galStyle });
     const inWish = this.state.wishlist.includes(d.slug);
     const rev = this.state.rev;
     const pill = (sel) => ({ bg: sel ? '#2a2422' : '#fff', color: sel ? '#fff' : '#2a2422', border: sel ? '#2a2422' : '#e6e0dd' });
     const sizes = ['Custom'].map((sz) => ({ label: sz.toUpperCase(), ...pill(this.state.size === sz), on: () => this.setState({ size: sz, err: null }) }));
     const ITEMS = [{ key: 'lehnga', label: 'Lehnga & Blouse', price: 65000, silkExtra: 10000 }, { key: 'dupatta', label: 'Dupatta', price: 10000, silkExtra: 5000 }];
-    const FABRICS = [{ key: 'silk', label: this.state.item === 'dupatta' ? 'Net Organza' : 'Tissue Silk' }];
+    const FABRICS = [{ key: 'silk', label: this.state.item === 'dupatta' ? 'Net Organza' : 'Pure Jamawar' }];
     const items = ITEMS.map((it) => ({ label: it.label, ...pill(this.state.item === it.key), on: () => this.setState({ item: it.key }) }));
     const fabrics = FABRICS.map((f) => ({ label: f.label, ...pill(this.state.fabric === f.key), on: () => this.setState({ fabric: f.key }) }));
     const curItem = ITEMS.find((it) => it.key === this.state.item) || ITEMS[0];
@@ -450,6 +467,11 @@ class Component extends DCLogic {
 
     return {
       lbOpen: !!this.state.lb, lbImg: this.state.lb ? (() => {
+        if (isVid(this.state.lb)) return React.createElement('video', {
+          src: this.state.lb, controls: true, autoPlay: true, loop: true, playsInline: true, muted: true,
+          onClick: (e) => e.stopPropagation(),
+          style: { maxWidth: 'min(94vw,1150px)', maxHeight: '92vh', objectFit: 'contain', background: '#000', boxShadow: '0 40px 90px -25px rgba(0,0,0,.75)' }
+        });
         const sc = this.state.lbScale || 1;
         const p = this.state.lbPan || { x: 0, y: 0 };
         const zoomed = sc > 1;
@@ -482,9 +504,10 @@ class Component extends DCLogic {
       leftImg: mkGal(gallery[galAct], () => this.setState({ lb: gallery[galAct] })),
       rightImg: mkGal(gallery[galNext], () => this.setState({ lb: gallery[galNext] })),
       zoomActive: () => this.setState({ lb: gallery[galAct] }),
-      galleryPrev: () => this.setState((s) => ({ active: ((((s.active||0)-1)%galN)+galN)%galN })),
-      galleryNext: () => this.setState((s) => ({ active: ((s.active||0)+1)%galN })),
+      galleryPrev: () => this.setState((s) => ({ active: ((((s.active||0)-1)%mediaN)+mediaN)%mediaN })),
+      galleryNext: () => this.setState((s) => ({ active: ((s.active||0)+1)%mediaN })),
       sel0:()=>this.setState({active:0}), sel1:()=>this.setState({active:1}), sel2:()=>this.setState({active:2}), sel3:()=>this.setState({active:3}), sel4:()=>this.setState({active:4}),
+      sel5:()=>this.setState({active:5}), tb5: galAct===5?'#a28b4c':'#efeae8',
       tb0: galAct===0?'#a28b4c':'#efeae8', tb1: galAct===1?'#a28b4c':'#efeae8', tb2: galAct===2?'#a28b4c':'#efeae8', tb3: galAct===3?'#a28b4c':'#efeae8', tb4: galAct===4?'#a28b4c':'#efeae8',
       zoomSize: () => this.setState({ lb: 'assets/size-guide.webp' }),
       dir: rev ? 'row-reverse' : 'row',
