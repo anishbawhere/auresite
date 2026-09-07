@@ -39,11 +39,6 @@
   #aure-carousel::-webkit-scrollbar{display:none}
   #aure-rail{scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:auto}
   #aure-rail::-webkit-scrollbar{display:none}
-  #aure-rail-slider{-webkit-appearance:none;appearance:none;width:min(220px,48vw);height:18px;background:transparent;outline:none;cursor:pointer;touch-action:none}
-  #aure-rail-slider::-webkit-slider-runnable-track{height:3px;background:#e7e0dc;border-radius:3px}
-  #aure-rail-slider::-moz-range-track{height:3px;background:#e7e0dc;border-radius:3px}
-  #aure-rail-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:12px;border-radius:6px;background:#b49ba4;cursor:grab;margin-top:-4.5px}
-  #aure-rail-slider::-moz-range-thumb{width:34px;height:12px;border:none;border-radius:6px;background:#b49ba4;cursor:grab}
   @media (max-width:900px){
     .aure-founders{grid-template-columns:1fr !important;gap:34px !important}
     .aure-contact{grid-template-columns:1fr !important}
@@ -62,7 +57,7 @@
     #aure-rail{display:grid !important;grid-template-columns:1fr 1fr !important;gap:2px !important;overflow:visible !important;padding:0 !important}
     #aure-rail > div{flex:none !important}
     .aure-card-txt{padding:13px 8px 30px !important;margin-top:0 !important}
-    .aure-rail-ctrl{display:none !important}
+    .aure-rail-ctrl{margin-top:20px !important}
     .aure-hero-sec{height:78svh !important;min-height:440px !important}
     .aure-hero-copy{padding:88px 22px 40px !important}
     .aure-founders{grid-template-columns:1fr 1fr !important;gap:14px !important;max-width:420px !important;margin:0 auto !important;align-items:start !important}
@@ -310,8 +305,13 @@
         </div>
       </sc-for>
       </div>
-      <div class="aure-rail-ctrl" style="display:flex;justify-content:center;margin-top:30px">
-        <input id="aure-rail-slider" type="range" min="0" max="1000" value="0" step="1" aria-label="Scroll the collection" style="width:min(220px,48vw)">
+      <div class="aure-rail-ctrl" style="display:flex;justify-content:center;align-items:center;gap:18px;margin-top:30px">
+        <button onClick="{{ railPrev }}" aria-label="Previous pieces" style="width:46px;height:46px;border-radius:50%;border:1px solid #e7e0dc;background:#fff;color:#2a2422;cursor:pointer;display:grid;place-items:center;transition:border-color .3s ease,background .3s ease,color .3s ease" style-hover="{ borderColor:'#b49ba4', background:'#b49ba4', color:'#fff' }">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><polyline points="14.5 5 8 12 14.5 19"></polyline></svg>
+        </button>
+        <button onClick="{{ railNext }}" aria-label="More pieces" style="width:46px;height:46px;border-radius:50%;border:1px solid #e7e0dc;background:#fff;color:#2a2422;cursor:pointer;display:grid;place-items:center;transition:border-color .3s ease,background .3s ease,color .3s ease" style-hover="{ borderColor:'#b49ba4', background:'#b49ba4', color:'#fff' }">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><polyline points="9.5 5 16 12 9.5 19"></polyline></svg>
+        </button>
       </div>
       <div style="display:flex;justify-content:center;margin-top:44px">
         <a href="collection.html" style="display:inline-flex;align-items:center;gap:12px;background:#2a2422;color:#fff;padding:16px 46px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:300;transition:background .35s ease" style-hover="{ background:'#000000' }">View All</a>
@@ -513,24 +513,27 @@ class Component extends DCLogic {
     this._initCarousel();
 
     // Collection rail: wheel-to-horizontal + slider control
-    this._initRail();
   }
 
-  _initRail() {
+  _railBy(dir) {
     const rail = document.getElementById('aure-rail');
-    const slider = document.getElementById('aure-rail-slider');
-    if (!rail || !slider) return;
-    const maxScroll = () => Math.max(1, rail.scrollWidth - rail.clientWidth);
-    this._railScroll = () => { if (this._sliderDrag) return; slider.value = String(Math.round(rail.scrollLeft / maxScroll() * 1000)); };
-    this._sliderInput = () => { rail.scrollLeft = (Number(slider.value) / 1000) * maxScroll(); };
-    this._sliderDown = () => { this._sliderDrag = true; };
-    this._sliderUp = () => { this._sliderDrag = false; };
-    rail.addEventListener('scroll', this._railScroll, { passive: true });
-    slider.addEventListener('input', this._sliderInput);
-    slider.addEventListener('pointerdown', this._sliderDown);
-    window.addEventListener('pointerup', this._sliderUp);
-    this._railEl = rail; this._sliderEl = slider;
-    requestAnimationFrame(this._railScroll);
+    if (!rail) return;
+    const card = rail.querySelector(':scope > div');
+    const step = card ? card.getBoundingClientRect().width + 26 : rail.clientWidth * 0.8;
+    const max = Math.max(0, rail.scrollWidth - rail.clientWidth);
+    const from = rail.scrollLeft;
+    const base = (this._railTimer && this._railTarget != null) ? this._railTarget : from;
+    const to = Math.min(max, Math.max(0, base + dir * step));
+    if (to === from) return;
+    clearInterval(this._railTimer);
+    this._railTarget = to;
+    const t0 = Date.now(), dur = 380;
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    this._railTimer = setInterval(() => {
+      const t = Math.min(1, (Date.now() - t0) / dur);
+      rail.scrollLeft = from + (to - from) * ease(t);
+      if (t >= 1) { clearInterval(this._railTimer); this._railTimer = null; this._railTarget = null; }
+    }, 16);
   }
 
   _initCarousel() {
@@ -579,12 +582,6 @@ class Component extends DCLogic {
       this._car.removeEventListener('mouseleave', this._carLeave);
       this._car.removeEventListener('wheel', this._carWheel);
       this._car.removeEventListener('scroll', this._carScroll);
-    }
-    if (this._railEl) {
-      this._railEl.removeEventListener('scroll', this._railScroll);
-      this._sliderEl.removeEventListener('input', this._sliderInput);
-      this._sliderEl.removeEventListener('pointerdown', this._sliderDown);
-      window.removeEventListener('pointerup', this._sliderUp);
     }
   }
 
@@ -785,6 +782,8 @@ class Component extends DCLogic {
     const navCollection = (tabId) => (e) => { if (e) e.preventDefault(); this.setState({ view: 'home', navMenuOpen: false, tab: tabId, hovered: null, switching: false }); setTimeout(() => scrollToId('#collection'), 0); };
 
     return {
+      railPrev: () => this._railBy(-1),
+      railNext: () => this._railBy(1),
       showHome: this.state.view === 'home',
       showDetail: this.state.view === 'detail',
       detail,

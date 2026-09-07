@@ -304,6 +304,23 @@
             </div>
           </sc-if>
         </div>
+
+        <div style="border:1px solid #efeae8;border-radius:12px;background:#fff;margin-top:14px;overflow:hidden">
+          <button onClick="{{ toggleExch }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border:none;background:none;cursor:pointer">
+            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:22px;color:#2a2422">Exchange Policy</span>
+            <span style="display:inline-block;transform:rotate({{ exchRot }});transition:transform .35s ease;color:#a28b4c">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 15 12 9 18 15"></polyline></svg>
+            </span>
+          </button>
+          <sc-if value="{{ exchOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 24px 26px;display:grid;gap:16px">
+              <p style="font-weight:200;font-size:14px;line-height:2;color:#6b6560;margin:0">Exchanges are accepted only for manufacturing defects. We do not offer exchanges or returns for change of mind, incorrect size selection, or general dissatisfaction.</p>
+              <p style="font-weight:200;font-size:14px;line-height:2;color:#6b6560;margin:0">To request an exchange, contact us within 7 days of delivery with your proof of purchase and clear photos of the defect. Items must be unused and in their original packaging with tags intact. Defects from wear and tear, misuse, or improper care are not covered.</p>
+              <div style="height:1px;background:#f1eeef"></div>
+              <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a807b;font-weight:300;margin:0">All requests are subject to inspection and approval</p>
+            </div>
+          </sc-if>
+        </div>
       </div>
     </div>
   </section>
@@ -479,6 +496,9 @@ class Component extends DCLogic {
       sizes, items, fabrics, price,
       qty: this.state.qty,
       descOpen: this.state.descOpen,
+      exchOpen: !!this.state.exchOpen,
+      exchRot: this.state.exchOpen ? '0deg' : '180deg',
+      toggleExch: () => this.setState((s) => ({ exchOpen: !s.exchOpen })),
       descRot: this.state.descOpen ? '0deg' : '180deg',
       wishFill: inWish ? '#a28b4c' : 'none',
       wishStroke: inWish ? '#a28b4c' : '#2a2422',
