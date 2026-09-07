@@ -299,8 +299,25 @@
                 <span style="font-weight:400;color:#2a2422">Size</span><span style="font-weight:200;color:#6b6560">Small</span>
                 <span style="font-weight:400;color:#2a2422">Cut</span><span style="font-weight:200;color:#6b6560">Relaxed Fit</span>
                 <span style="font-weight:400;color:#2a2422">Jacket</span><span style="font-weight:200;color:#6b6560">Silk Organza</span>
-                <span style="font-weight:400;color:#2a2422">Slip &amp; Trouser</span><span style="font-weight:200;color:#6b6560">Tissue Silk / Raw Silk</span>
+                <span style="font-weight:400;color:#2a2422">Slip &amp; Trouser</span><span style="font-weight:200;color:#6b6560">Tissue Silk</span>
               </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="border:1px solid #efeae8;border-radius:12px;background:#fff;margin-top:14px;overflow:hidden">
+          <button onClick="{{ toggleExch }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border:none;background:none;cursor:pointer">
+            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:22px;color:#2a2422">Exchange Policy</span>
+            <span style="display:inline-block;transform:rotate({{ exchRot }});transition:transform .35s ease;color:#a28b4c">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 15 12 9 18 15"></polyline></svg>
+            </span>
+          </button>
+          <sc-if value="{{ exchOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 24px 26px;display:grid;gap:16px">
+              <p style="font-weight:200;font-size:14px;line-height:2;color:#6b6560;margin:0">Exchanges are accepted only for manufacturing defects. We do not offer exchanges or returns for change of mind, incorrect size selection, or general dissatisfaction.</p>
+              <p style="font-weight:200;font-size:14px;line-height:2;color:#6b6560;margin:0">To request an exchange, contact us within 7 days of delivery with your proof of purchase and clear photos of the defect. Items must be unused and in their original packaging with tags intact. Defects from wear and tear, misuse, or improper care are not covered.</p>
+              <div style="height:1px;background:#f1eeef"></div>
+              <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a807b;font-weight:300;margin:0">All requests are subject to inspection and approval</p>
             </div>
           </sc-if>
         </div>
@@ -416,7 +433,7 @@ class Component extends DCLogic {
     const pill = (sel) => ({ bg: sel ? '#2a2422' : '#fff', color: sel ? '#fff' : '#2a2422', border: sel ? '#2a2422' : '#e6e0dd' });
     const sizes = ['S', 'M', 'L', 'Custom'].map((sz) => ({ label: sz, ...pill(this.state.size === sz), on: () => this.setState({ size: sz, err: null }) }));
     const ITEMS = [{ key: 'set', label: 'Jacket, Slip & Trouser' }];
-    const FABRICS = [{ key: 'tissue', label: 'Tissue Silk', price: 100000 }, { key: 'raw', label: 'Raw Silk', price: 125000 }];
+    const FABRICS = [{ key: 'tissue', label: 'Tissue Silk', price: 100000 }];
     const items = ITEMS.map((it) => ({ label: it.label, ...pill(this.state.item === it.key), on: () => this.setState({ item: it.key }) }));
     const fabrics = FABRICS.map((f) => ({ label: f.label, ...pill(this.state.fabric === f.key), on: () => this.setState({ fabric: f.key }) }));
     const curItem = ITEMS.find((it) => it.key === this.state.item) || ITEMS[0];
@@ -479,6 +496,9 @@ class Component extends DCLogic {
       sizes, items, fabrics, price,
       qty: this.state.qty,
       descOpen: this.state.descOpen,
+      exchOpen: !!this.state.exchOpen,
+      exchRot: this.state.exchOpen ? '0deg' : '180deg',
+      toggleExch: () => this.setState((s) => ({ exchOpen: !s.exchOpen })),
       descRot: this.state.descOpen ? '0deg' : '180deg',
       wishFill: inWish ? '#a28b4c' : 'none',
       wishStroke: inWish ? '#a28b4c' : '#2a2422',
